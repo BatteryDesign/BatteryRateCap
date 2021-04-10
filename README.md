@@ -9,7 +9,7 @@ to discover new 3D battery design rules among existing 3D battery cases with
 data science approaches.
 
 ### Use Cases and Componennt Specifications
-** Estimate Parameters for Rate Performance:** One experimental measure for the
+** Estimate Parameters for Rate Performance**: One experimental measure for the
 the high-rate (power) perfromance of batteries (often composed of Sodium-ion or
 Lithium-ion) is the observation of the capacity Q for varying charge or discharge
 rate RT. The battery capacity tends to be inversely proportional to the discharge
