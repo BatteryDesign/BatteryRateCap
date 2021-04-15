@@ -3,4 +3,5 @@ channels:
   - defaults
 dependencies:
   - scipy
+  - pandas
 prefix: /Users/praizanyanwu/Documents/python/direct/miniconda3/envs/3dLiIbattery
