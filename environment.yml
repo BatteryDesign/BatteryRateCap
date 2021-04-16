@@ -4,4 +4,6 @@ channels:
 dependencies:
   - scipy
   - pandas
+  - matplotlib
+  - scikit-learn
 prefix: /Users/praizanyanwu/Documents/python/direct/miniconda3/envs/3dLiIbattery
