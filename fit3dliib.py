@@ -4,7 +4,7 @@ import pandas as pd
 from scipy.optimize import curve_fit
 
 
-def fit3DliIB(filepath, params0):
+def fit(filepath, params0):
     '''
     A curve fitting procedure to determine the discharge
     rate constant, the n factor for the discharge rate,
