@@ -37,9 +37,8 @@ def fitfunc(Rdischarge, tau, n, Qcapacity):
     Capacity versus rate discharge model outlined by
     https://www.nature.com/articles/s41467-019-09792-9
     '''
-    normQ \
-         = Qcapacity * \
-       (1 - (Rdischarge * tau)**n *
-       (1 - np.exp(- (Rdischarge * tau)**(- n)))
-       )
+    normQ = Qcapacity * (1 -
+                         (Rdischarge * tau)**n *
+                         (1 - np.exp(- (Rdischarge * tau)**(- n)))
+                         )
     return normQ
