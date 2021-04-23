@@ -8,6 +8,17 @@ among existing 3D battery cases with data science approaches. This project aims
 to discover new 3D battery design rules among existing 3D battery cases with
 data science approaches.
 
+### Gantt Chart
+| Week                                              |  1  |  2   |  3   |  4   |  5  |  6   |  7   |  8   |  9   |  10  |
+|---------------------------------------------------|-----|------|------|------|-----|------|------|------|------|------|
+| Date                                              | 4/5 | 4/12 | 4/19 | 4/26 | 5/3 | 5/10 | 5/17 | 5/24 | 5/31 | 6/7  |
+|Task 1: Curve Fitting Script                       |  O  |   O  |   O  |      |     |      |      |      |      |      |
+|Task 2: Data Visualization                         |     |   O  |   O  |   O  |  O  |      |      |      |      |      |
+|Task 3: Data-driven models Review (maybe optional) |     |      |      |      |     |   O  |   O  |  O   |      |      |
+|Task 4: DataYoink Neural Network                   |     |      |      |      |     |   O  |   O  |  O   |      |      |
+|   Compile Final Presentation Poster               |     |      |      |      |     |      |      |      |   O  |      |
+|   Final Presentation                              |     |      |      |      |     |      |      |      |      |   O  |
+
 ### Use Cases and Componennt Specifications
 **Estimate Parameters for Rate Performance**: One experimental measure for the
 the high-rate (power) perfromance of batteries (often composed of Sodium-ion or
