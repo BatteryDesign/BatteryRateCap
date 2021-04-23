@@ -38,7 +38,38 @@ In general, these parameters relate the rate performance to physical quantities
 such as, the electrode thickness, porosity, and particle size of the conductive
 component, here, Lithium-ion. We use a least square curve fit procedure to
 extract the above parameters based on a capacity versus rate discharge dataset.
-
+**3D Battery Design Rule 1 -- Rate-limiting coefficient n**:The parameter
+n found from fitting rate-capacity data determines how drastic a battery expereincce 
+capacity fade over increasing charge/discharge rates. In supercapacitor, n=1 signifies
+the dominating resistance resulting in capacity fade is dues to in sufficeint conduction.
+Likewise, n=1/2 represents a purely diffusion-limited cell. This is an empirical
+metric derived from rate-capacity fitting to supercapacitors. In *R. Tian & S. Park et al*,
+it is assumed that 1D Lithium-ion/Sodium-ion batteries follow the same metric. 
+We analyze the usability of this metric for 3D batteries by visualizing the distribution
+of n values fitted from our 3D battery data. Unlike the baseline paper where most n values
+lie in the range of 0-2, our n values have a widely spreaded distribution with magnitude
+as high as 8. The preliminary result shows that the n metric used for super capacitors
+does not apply to 3D batteries. Further visualization on the n values versus 3D 
+architecture types is required to determine the underlying factors for the variations in n.
+Here we hypothesize that at least one additional rate-limiting mechanism, the kinetic
+limitation, exists in 3D batteries and that there exists a different n metric for 3D
+batteries. 
+**3D Battery Design Rule 2 -- Tau-L relationship**: A quadratic realationship is 
+found between the fitting parameter characterisitc time tau and the electrode 
+thickness L in 1D batteries. We hypothesize that this relationship does not 
+apply to 3D batteries. We will validate out hypothesis by plotting tau versus
+L data from our 3D battery data. We will also visualize tau versus 3D electrode
+charateristic length data among 3D architecture groups to analyze whether or not
+a linear/quadratic relationship can be found.
+**Mathematical versus Statistical model for 3D battery rate-limiting mechanism**:
+Based on the tau-L realationship, our baseline paper discovered a mathematical 
+model that relate tau to L and material paramteres including the diffusivities,
+conductitivites, and the particle radius for 1D batteries. Here we will determine
+whether a similar mathematical model can be found for 3D battereies with the same
+approach. We will decided whether a general trend can be observed from data
+visualization. If no significant pattern is easily detectable from our dataset,
+we will determine whether it is a result of lack of data or that the pattern can 
+only be found with statistical appraches.  
 ## References
 <a id="1">[1]</a>
 Tian, R., Park, SH., King, P., Cunningham, G., Coelho, J., Nicolosi, V.,
