@@ -26,7 +26,7 @@ def test_fit():
     except AssertionError:
         print(f'I should have only three parameters, \
               not {lenparam}')
-    return
+#    return
 
 
 # def test_fitfunc():
