@@ -1,4 +1,3 @@
-import numpy as np
 import os
 
 import pandas as pd
@@ -63,7 +62,7 @@ def test_fitfunc():
             normQ0lessorequalQcapacity = (normQ0 <= Qcapacity)
             assert(normQ0lessorequalQcapacity)
         except AssertionError:
-            print(f'the normalized mass Q capacity should be less \
+            print('the normalized mass Q capacity should be less \
                   than or equal to the specific capacity at any \
                   given discharge rate')
     return
