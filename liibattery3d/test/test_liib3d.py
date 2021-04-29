@@ -65,5 +65,5 @@ def test_fitfunc():
         except AssertionError:
             print(f'the normalized mass Q capacity should be less \
                   than or equal to the specific capacity at any \
-                  given discharge')
+                  given discharge rate')
     return
