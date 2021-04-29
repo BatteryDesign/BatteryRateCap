@@ -4,4 +4,8 @@ channels:
 dependencies:
   - scipy
   - pandas
+  - matplotlib
+  - scikit-learn
+  - flake8
+  - pytest
 prefix: /Users/praizanyanwu/Documents/python/direct/miniconda3/envs/3dLiIbattery
