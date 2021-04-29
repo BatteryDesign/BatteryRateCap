@@ -1,3 +1,6 @@
+[comment]: <> (Build Badge)
+[![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
+
 # 3DLi-ionbattery
 Three-dimensional (3D) batteries enable high power and energy by modifying the
 conventionally 1D planar architecture of battery electrodes into complicated 3D
@@ -78,5 +81,5 @@ Quantifying the factors limiting rate performance in battery electrodes.
 Nat Commun, 10, 1933 (2019).
 https://doi-org.offcampus.lib.washington.edu/10.1038/s41467-019-09792-9
 
-[comment]: <> (Build Badge)
-[![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
+
+
