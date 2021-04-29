@@ -1,4 +1,7 @@
+import numpy as np
 import os
+
+import pandas as pd
 
 import liibattery3d
 from liibattery3d import liib3d
@@ -26,15 +29,41 @@ def test_fit():
     except AssertionError:
         print(f'I should have only three parameters, \
               not {lenparam}')
-#    return
+    return
 
 
-# def test_fitfunc():
-#   '''
-#   The output of the fit function is the (mass) normalize capacity
-#   simply assert that the size of the output array is equal to the
-#   size of the input array, and that
-#   the maximum value at initail discharge rate (at zero) is equal to
-#   the specific capacity
-#   '''
-#   return
+def test_fitfunc():
+    '''
+    The output of the fit function is the (mass) normalized capacity
+    simply assert that the size of the output array is equal to the
+    size of the input array, and that
+    the maximum value at initail discharge rate (at zero) is less
+    than or equal to the specific capacity
+    '''
+    filepath = os.path.join(data_path, "capacityratepaper1set1.csv")
+    tau = 0.5
+    n = 1
+    Qcapacity = 100
+    # import data
+    dframe = pd.read_csv(filepath)
+    Rdischarge = dframe.iloc[:, 0].to_numpy()
+    # estimate normalize mass Q from model
+    normQ = liib3d.fitfunc(Rdischarge, tau, n, Qcapacity)
+    # first check the shape of normQ output
+    try:
+        shape_normQ = normQ.shape
+        shape_Rdischarge = Rdischarge.shape
+        assert(shape_normQ == shape_Rdischarge)
+    except AssertionError:
+        print(f'the size of input array, {shape_Rdischarge}, and\
+              output array, {shape_normQ}, should be equal')
+        # second, check the initial output value
+        try:
+            normQ0 = normQ[0]
+            normQ0lessorequalQcapacity = (normQ0 <= Qcapacity)
+            assert(normQ0lessorequalQcapacity)
+        except AssertionError:
+            print(f'the normalized mass Q capacity should be less \
+                  than or equal to the specific capacity at any \
+                  given discharge rate')
+    return
