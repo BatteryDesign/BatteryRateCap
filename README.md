@@ -1,3 +1,6 @@
+[comment]: <> (Build Badge)
+[![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
+
 # 3DLi-ionbattery
 Three-dimensional (3D) batteries enable high power and energy by modifying the
 conventionally 1D planar architecture of battery electrodes into complicated 3D
@@ -70,6 +73,8 @@ approach. We will decided whether a general trend can be observed from data
 visualization. If no significant pattern is easily detectable from our dataset,
 we will determine whether it is a result of lack of data or that the pattern can 
 only be found with statistical appraches.<br/>
+## Component Specifications Chart
+![Component specifications](https://user-images.githubusercontent.com/67809165/116957565-00c06480-ac4d-11eb-875b-8f5cb6cf1309.png)
 ## References
 <a id="1">[1]</a>
 Tian, R., Park, SH., King, P., Cunningham, G., Coelho, J., Nicolosi, V.,
@@ -77,3 +82,6 @@ Coleman, J.
 Quantifying the factors limiting rate performance in battery electrodes.
 Nat Commun, 10, 1933 (2019).
 https://doi-org.offcampus.lib.washington.edu/10.1038/s41467-019-09792-9
+
+
+
