@@ -6,7 +6,7 @@ import pandas as pd
 from scipy.optimize import curve_fit
 
 # fit 3D Lithium ion battery dataset
-data = os.path.join(liibattery3d.__path__[0], 'data')
+data = os.path.join(os.getcwd(), 'data')
 
 
 def fit3dliib():
@@ -29,13 +29,13 @@ def fit3dliib():
     # define list of fit parameters
     taus = []
     ns = []
-    Qcapacities =[]
+    Qcapacities = []
     numdataset = range(int(len(dframe.columns) / 2))
     # fit dataset
     for i in numdataset:
         # import xdata and ydata from dataframe
-        xdata = dframe.iloc[: , (2 * i)].values[0:]
-        ydata = dframe.iloc[: , ((2 * i) + 1)].values[0:]
+        xdata = dframe.iloc[:, (2 * i)].values[0:]
+        ydata = dframe.iloc[:, ((2 * i) + 1)].values[0:]
         # discard null datapoints
         # and define input and output of fit function
         Rdischarge = xdata[~pd.isnull(xdata)]
@@ -69,7 +69,7 @@ def fit3dliib():
         for subindex, string in enumerate(colnames[index]):
             # conserve numbers only
             colnames[index][subindex] = int(re.findall(r'\d+', string)[0])
-        colnames[index] = tuple(colname[index])
+        colnames[index] = tuple(colnames[index])
     # insert optimized parameters into dataframe
     popt_dframe = pd.DataFrame(columns=['Paper #', 'Set', 'tau', 'n', 'Q'])
     # Input paper and set numbers
