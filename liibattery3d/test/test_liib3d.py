@@ -21,7 +21,7 @@ def test_fit():
     n = 1
     Qcapacity = 100
     params0 = [tau, n, Qcapacity]  # intial guess parameter
-    popt = liib3d.fit(filepath, params0)
+    popt, _ = liib3d.fit(params0, filename=filepath)
     try:
         lenparam = len(popt)
         assert(lenparam == 3)
