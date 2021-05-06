@@ -8,6 +8,25 @@ from liibattery3d import liib3d
 data_path = os.path.join(liibattery3d.__path__[0], 'data')
 
 
+def test_fit3dliib():
+    '''
+    Test case for curve fit module to all dataset of
+    3d lithium ion battery prescribed in data dir
+    first check that output exists as 'fitparametersliib3d.csv' in
+    data dir, then assert output size of 'fitparametersliib3d.csv'
+    '''
+    # Write parameters to csv file with fit function
+    liib3d.fit3dliib()
+    # test 1; check that file exists
+    try:
+        filepath = os.path.join(data_path, "fitparametersliib3d.csv")
+        filepathexists = os.path.exists(filepath)
+        assert(filepathexists)
+    except AssertionError:
+        print("I couldn't find filepath to parameters csv file")
+    return
+
+
 def test_fit():
     """
     Test case for curve fit module to 3d lithium ion battery

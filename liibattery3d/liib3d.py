@@ -6,7 +6,10 @@ import pandas as pd
 from scipy.optimize import curve_fit
 
 # fit 3D Lithium ion battery dataset
-data = os.path.join(os.getcwd(), 'data')
+# data = os.path.join(os.getcwd(), 'liibattery3d')
+pathtomodule = os.path.abspath(__file__)
+dirname = os.path.dirname(pathtomodule)
+data = os.path.join(dirname, 'data')
 
 
 def fit3dliib():
@@ -85,7 +88,7 @@ def fit3dliib():
 
     # Write dataframe of optimized parameters to csv file
     outputpath = os.path.join(data, "fitparametersliib3d.csv")
-    popt_dframe.to_csv(path=outputpath, index=False)
+    popt_dframe.to_csv(path_or_buf=outputpath, index=False)
     return
 
 # define fit procedure
