@@ -12,7 +12,7 @@ dirname = os.path.dirname(pathtomodule)
 data = os.path.join(dirname, 'data')
 
 
-def fit3dliib():
+def fitliib3d():
     '''
     A curve fitting procedure to determine the discharge
     rate constant, the n factor for the discharge rate,
