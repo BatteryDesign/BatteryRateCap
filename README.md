@@ -14,6 +14,7 @@ The final products of our project include a Python pacakge for visualizing and
 analysing 3D battery data. The package is specifically tailored to the data structure 
 of our 3D battery dataset. The pacakge contains (A) a data conversion component,
 (B) a curve-fitting component, (C) a visulization component, and (D) a hypothesis testing component.
+![alt text](https://github.com/3DBatteryDesign/3DLi-ionbattery/blob/0d35484f2e800dfc9533d3d9f63d8ed553d17337/doc/Python%20Package%20Component.png)
 
 ### Use Cases
 1. Use case 1: Data Fitting
