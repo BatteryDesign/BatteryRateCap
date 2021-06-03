@@ -29,10 +29,13 @@ def fitliib3d():
                            header=[0, 1, 2])
 
     # Fit procedure
-    # define list of fit parameters
+    # define list of fit parameters and of their standard deviations
     taus = []
+    sigma_taus = []
     ns = []
-    Qcapacities = []
+    sigma_ns = []
+    specificQs = []
+    sigma_Qs = []
     numdataset = range(int(len(dframe.columns) / 2))
     # fit dataset
     for i in numdataset:
@@ -49,19 +52,26 @@ def fitliib3d():
             # parameters
             tau = 0.5
             n = 1
-            Qcapacity = 100
-            params0 = [tau, n, Qcapacity]  # intial guess parameter
+            specificQ = 100
+            params0 = [tau, n, specificQ]  # intial guess parameter
             popt, pcov = fit(params0, xdata=Rdischarge, ydata=normQ)
-            tau, n, Qcapacity = popt
-            # std = np.sqrt(np.diag(pcov))
+            tau, n, specificQ = popt
+            # standard deviation
+            sigma_tau, sigma_n, sigma_Q = np.sqrt(np.diag(pcov))
         else:
             tau = 0
             n = 0
-            Qcapacity = 0
+            specificQ = 0
+            sigma_tau, sigma_n, sigma_Q = [0, 0, 0]
         # append optimized fit parameters to list
         taus.append(tau)
         ns.append(n)
-        Qcapacities.append(Qcapacity)
+        specificQs.append(specificQ)
+        # append standard deviation of
+        # error margin on fit parameters to list
+        sigma_taus.append(sigma_tau)
+        sigma_ns.append(sigma_n)
+        sigma_Qs.append(sigma_Q)
 
     # Structure the optimized parameters into a dataframe
     # Define all column names of dataset from original dataframe
@@ -74,14 +84,20 @@ def fitliib3d():
             colnames[index][subindex] = int(re.findall(r'\d+', string)[0])
         colnames[index] = tuple(colnames[index])
     # insert optimized parameters into dataframe
-    popt_dframe = pd.DataFrame(columns=['Paper #', 'Set', 'tau', 'n', 'Q'])
-    # Input paper and set numbers
+    popt_dframe = pd.DataFrame(columns=['Paper #', 'Set',
+        'tau', 'n', 'Q',
+        'sigma_tau', 'sigma_n', 'sigma_Q'])
+    # Input paper, set numbers, optimized parameters and
+    # their error margins into dataframe
     for index, element in enumerate(colnames):
         row = [int(element[0]),
                int(element[1]),
                taus[index],
                ns[index],
-               Qcapacities[index],
+               specificQs[index],
+               sigma_taus[index],
+               sigma_ns[index],
+               sigma_Qs[index]
                ]
         row_series = pd.Series(row, index=popt_dframe.columns)
         popt_dframe = popt_dframe.append(row_series, ignore_index=True)
@@ -111,7 +127,7 @@ def fit(params0, **kwargs):
     filename: string, filepath
         (csv format) first column is xdata, second, ydata
     Output Argument
-    Return the optimized parameters tau, n, Qcapacity
+    Return the optimized parameters tau, n, specificQ
     '''
     # import data
     if 'xdata' in kwargs:
@@ -130,12 +146,12 @@ def fit(params0, **kwargs):
 # define fit function
 
 
-def fitfunc(Rdischarge, tau, n, Qcapacity):
+def fitfunc(Rdischarge, tau, n, specificQ):
     '''
     Capacity versus rate discharge model outlined by
     https://www.nature.com/articles/s41467-019-09792-9
     '''
-    normQ = Qcapacity * (1 -
+    normQ = specificQ * (1 -
                          (Rdischarge * tau)**n *
                          (1 - np.exp(- (Rdischarge * tau)**(- n)))
                          )
