@@ -25,7 +25,20 @@ def test_fitliib3d():
     except AssertionError:
         print("I couldn't find filepath to parameters csv file")
     return
-
+    # test 2; check output size of fit parameter csv file
+    # read output of the optimized parameters
+    try:
+        filepath_out = os.path.join('../liibattery3d/data',
+            'fitparametersliib3d.csv')
+        dframe_out = pd.read_csv(filepath_out)
+        numcolumns = 8
+        shapeout = (dframe_out.shape[1] == numcolumns)
+        assert(shapeout)
+    except AssertionError:
+        print(f"There should be {numcolumns} columns for \
+            the paper and set of data, the optimized parameters \
+            and their standard deviations")
+    return
 
 def test_fit():
     """
@@ -38,8 +51,8 @@ def test_fit():
     # parameters
     tau = 0.5
     n = 1
-    Qcapacity = 100
-    params0 = [tau, n, Qcapacity]  # intial guess parameter
+    specificQ = 100
+    params0 = [tau, n, specificQ]  # intial guess parameter
     popt, _ = liib3d.fit(params0, filename=filepath)
     try:
         lenparam = len(popt)
@@ -61,12 +74,12 @@ def test_fitfunc():
     filepath = os.path.join(data_path, "capacityratepaper1set1.csv")
     tau = 0.5
     n = 1
-    Qcapacity = 100
+    specificQ = 100
     # import data
     dframe = pd.read_csv(filepath)
     Rdischarge = dframe.iloc[:, 0].to_numpy()
     # estimate normalize mass Q from model
-    normQ = liib3d.fitfunc(Rdischarge, tau, n, Qcapacity)
+    normQ = liib3d.fitfunc(Rdischarge, tau, n, specificQ)
     # first check the shape of normQ output
     try:
         shape_normQ = normQ.shape
@@ -78,10 +91,10 @@ def test_fitfunc():
         # second, check the initial output value
         try:
             normQ0 = normQ[0]
-            normQ0lessorequalQcapacity = (normQ0 <= Qcapacity)
-            assert(normQ0lessorequalQcapacity)
+            normQ0lessorequalspecificQ = (normQ0 <= specificQ)
+            assert(normQ0lessorequalspecificQ)
         except AssertionError:
-            print('the normalized mass Q capacity should be less \
-                  than or equal to the specific capacity at any \
-                  given discharge rate')
+            print('the normalized mass capacity normQ should be \
+                less than or equal to the specific capacity Q \
+                at any given discharge rate')
     return
