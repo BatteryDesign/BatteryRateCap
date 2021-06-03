@@ -1,7 +1,6 @@
 import plot_geo as geo
 import pandas as pd
 
-
 # The function `test_load_data()` tests the function `geo.load_data()`
 def test_load_data():
     """
@@ -14,8 +13,6 @@ def test_load_data():
         
     print('Test passed')
     return
-
-#test_load_data()
 
 #The function `test_get_archs()` tests the function `get_archs(merged_df)`
 def test_get_archs():
@@ -32,9 +29,6 @@ def test_get_archs():
         
     print('Test passed')
     return
-
-#test_get_archs()
-
 
 # The function `test_get_params()` tests the function `get_params(arch_type)`
 def test_get_params():
@@ -68,6 +62,4 @@ def test_get_params():
         
     print('Test passed')
     return
-
-#test_get_params()
 
