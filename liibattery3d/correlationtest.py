@@ -1,26 +1,38 @@
 import numpy as np
 from matplotlib import pyplot as plt
-import scipy
+import scipy.stats
 
 
-def correlation_test(x, y, alpha, test='pearson'):
+def correlation_hypothesis(x, y, alpha, test='pearson'):
     '''
     This function prints out the correlation and p values
     and returns the hypothesis testing results for two
     variables x and y.
     Input:
-        x -
-        y -
-        alpha -
-        test -
+        x - nx1 array
+        y - nx1 array
+        alpha - alpha value for correlation testing,
+                usually 0.05
+        test - type of correlation test, including
+               pearson and spearman test.
     Output:
+        correlation - correlation value (between -1 and 1)
+        p - p value
+        print out hypothesis test result
     '''
+    # Test that input parameters are the same length
+    assert len(x) == len(y), 'Input arrays have different lengths'
+    # Test that alpha is in acceptable range
+    assert 0 < alpha <= 0.1, 'Alpha is not in valid range'
+    # Set test type
     if test == 'pearson':
         correlation, p = scipy.stats.pearsonr(x, y)
     elif test == 'spearman':
         correlation, p = scipy.stats.spearmanr(x, y)
     else:
         print('Unknown correlation test')
+        correlation = np.nan
+        p = np.nan
     print(test, 'correlation betweeen the input variables is',
           "{:.2f}".format(correlation), 'with p value',
           "{:.2f}".format(p))
@@ -30,19 +42,27 @@ def correlation_test(x, y, alpha, test='pearson'):
     else:
         print('Accept null hypothesis. The linear correlation',
               ' is statistically insignificant')
-    return
+    return correlation, p
 
 
-def plot_linear_regression(x, y):
+def plot_linear_regression(x, y, plot=True):
     '''
     This function plots the linear regression line of variable x and y.
+    Input:
+        x - nx1 array
+        y - nx1 array
+        plot - default True, use False if do not need to plot
+    Output:
+        slope - the slope of the linear regression line
+        intercept - the y axis intercept of the linear regression line
     '''
     slope, intercept, r, p, stderr = scipy.stats.linregress(x, y)
     line_label = f'Regression line: y={intercept:.2f}+{slope:.2f}x'
-    plt.plot(x, y, linewidth=0, marker='o', color='green', label='input data')
-    plt.plot(x, intercept+slope*x, label=line_label)
-    plt.legend()
-    return slope, intercept
+    if plot is True:
+        plt.scatter(x, y, marker='o', color='green', label='input data')
+        plt.plot(x, intercept+slope*x, label=line_label)
+        plt.legend()
+    return slope, intercept, stderr
 
 
 def linear_outliers(x, y, num):
@@ -51,35 +71,47 @@ def linear_outliers(x, y, num):
     regression line and return lists of x,y with outliers
     removed.
     Input:
+        x - nx1 array
+        y - nx1 array
+        num - integar, number of outliers
     Output:
+        x_no_outliers - (n-num)x1 array
+        y_no_outliers - (n-num)x1 array
+        plot x, y data and highlights the outliers
     '''
-    slope, intercept = plot_linear_regression(x, y)
-    y_line = intercept + slope * x
-    err = []
-    for y_i, y_line_i in zip(y, y_line):
-        err.append(abs(y_line_i - y_i))
-    indexes = []
-    for outlier_num in range(num):
-        max_index = err.index(np.max(err))
-        indexes.append(max_index)
-        plt.plot(x[max_index], y[max_index], marker='o',
-                 color='r', label='outliers')
-        print('Detect outlier at position', 'x=',
-              x[max_index], 'y=', y[max_index])
-        err.remove(np.max(err))
-    # Create new x,y lists that don't have the outliers
+    # Plot original data
+    slope, intercept, stderr = plot_linear_regression(x, y, plot=False)
+    # Starting x and y before outlier removal
     x_no_outliers = x
     y_no_outliers = y
-    for item, index in enumerate(indexes):
-        x_no_outliers[item] = np.nan
-        y_no_outliers[item] = np.nan
-    x_no_outliers = [x_i for x_i in x_no_outliers if np.isnan(x_i) is False]
-    y_no_outliers = [y_i for y_i in y_no_outliers if np.isnan(y_i) is False]
+    # Calculate std error without each outlier removed
+    for item in range(num):
+        err_list = []
+        for x_i, index in enumerate(x_no_outliers):
+            x_remove = np.append(x_no_outliers[:index],
+                                 x_no_outliers[index+1:])
+            y_remove = np.append(x_no_outliers[:index],
+                                 x_no_outliers[index+1:])
+            slope, intercept, stderr = plot_linear_regression(x_remove,
+                                                              y_remove,
+                                                              plot=False)
+            err_list.append(stderr)
+        max_index = err_list.index(np.max(err_list))
+        # Sort error index from min to max
+        sorted_index = np.argsort(err_list)
+        max_index = sorted_index[-1]  # outlier index
+        print('Detect outlier at position', 'x=',
+              x_no_outliers[max_index], 'y=', y_no_outliers[max_index])
+        # Remove outlier
+        x_no_outliers = np.append(x_no_outliers[:max_index],
+                                  x_no_outliers[max_index+1:])
+        y_no_outliers = np.append(y_no_outliers[:max_index],
+                                  y_no_outliers[max_index+1:])
+    x_outliers = np.setxor1d(x, x_no_outliers)
+    y_outliers = np.setxor1d(y, y_no_outliers)
+    # Plot regression line without outliers
+    plot_linear_regression(x_no_outliers, y_no_outliers)
+    plt.scatter(x_outliers, y_outliers, marker='o',
+                color='r', label='outliers')
+    plt.legend()
     return x_no_outliers, y_no_outliers
-
-
-def data_outlier(x, y, num):
-    '''
-    This function identifies and plots the potential outliers of the dataset.
-    '''
-    return
