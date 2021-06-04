@@ -81,6 +81,7 @@ def linear_outliers(x, y, num):
     '''
     # Plot original data
     slope, intercept, stderr = plot_linear_regression(x, y, plot=False)
+    print('original std errer is', stderr)
     # Starting x and y before outlier removal
     x_no_outliers = x
     y_no_outliers = y
@@ -88,29 +89,41 @@ def linear_outliers(x, y, num):
     for item in range(num):
         err_list = []
         for x_i, index in enumerate(x_no_outliers):
-            x_remove = np.append(x_no_outliers[:index],
-                                 x_no_outliers[index+1:])
-            y_remove = np.append(x_no_outliers[:index],
-                                 x_no_outliers[index+1:])
+            x_remove = np.append(x_no_outliers[:int(index)],
+                                 x_no_outliers[int(index+1):])
+            y_remove = np.append(x_no_outliers[:int(index)],
+                                 x_no_outliers[int(index+1):])
             slope, intercept, stderr = plot_linear_regression(x_remove,
                                                               y_remove,
                                                               plot=False)
-            err_list.append(stderr)
-        max_index = err_list.index(np.max(err_list))
+            err_list.append(abs(stderr))
         # Sort error index from min to max
         sorted_index = np.argsort(err_list)
         max_index = sorted_index[-1]  # outlier index
         print('Detect outlier at position', 'x=',
               x_no_outliers[max_index], 'y=', y_no_outliers[max_index])
         # Remove outlier
-        x_no_outliers = np.append(x_no_outliers[:max_index],
-                                  x_no_outliers[max_index+1:])
-        y_no_outliers = np.append(y_no_outliers[:max_index],
-                                  y_no_outliers[max_index+1:])
-    x_outliers = np.setxor1d(x, x_no_outliers)
-    y_outliers = np.setxor1d(y, y_no_outliers)
+        x_no_outliers = np.append(x_no_outliers[:int(max_index)],
+                                  x_no_outliers[int(max_index+1):])
+        y_no_outliers = np.append(y_no_outliers[:int(max_index)],
+                                  y_no_outliers[int(max_index+1):])
+    # Find outlier arrays
+    x_outliers = list(x)
+    y_outliers = list(y)
+    x_no_outliers_list = list(x_no_outliers)
+    y_no_outliers_list = list(y_no_outliers)
+    for element in list(x_outliers):
+        if element in x_no_outliers_list:
+            x_outliers.remove(element)
+            x_no_outliers_list.remove(element)
+    for element in list(y_outliers):
+        if element in y_no_outliers_list:
+            y_outliers.remove(element)
+            y_no_outliers_list.remove(element)
     # Plot regression line without outliers
-    plot_linear_regression(x_no_outliers, y_no_outliers)
+    slope, intercept, stderr = plot_linear_regression(x_no_outliers,
+                                                      y_no_outliers)
+    print('new std error is', stderr)
     plt.scatter(x_outliers, y_outliers, marker='o',
                 color='r', label='outliers')
     plt.legend()
