@@ -29,7 +29,7 @@ def test_fitliib3d():
     # read output of the optimized parameters
     try:
         filepath_out = os.path.join('../liibattery3d/data',
-            'fitparametersliib3d.csv')
+                                    'fitparametersliib3d.csv')
         dframe_out = pd.read_csv(filepath_out)
         numcolumns = 8
         shapeout = (dframe_out.shape[1] == numcolumns)
@@ -39,6 +39,7 @@ def test_fitliib3d():
             the paper and set of data, the optimized parameters \
             and their standard deviations")
     return
+
 
 def test_fit():
     """

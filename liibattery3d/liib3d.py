@@ -85,8 +85,8 @@ def fitliib3d():
         colnames[index] = tuple(colnames[index])
     # insert optimized parameters into dataframe
     popt_dframe = pd.DataFrame(columns=['Paper #', 'Set',
-        'tau', 'n', 'Q',
-        'sigma_tau', 'sigma_n', 'sigma_Q'])
+                                        'tau', 'n', 'Q',
+                                        'sigma_tau', 'sigma_n', 'sigma_Q'])
     # Input paper, set numbers, optimized parameters and
     # their error margins into dataframe
     for index, element in enumerate(colnames):
