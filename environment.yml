@@ -8,4 +8,5 @@ dependencies:
   - scikit-learn
   - flake8
   - pytest
+  - xlrd
 prefix: /Users/praizanyanwu/Documents/python/direct/miniconda3/envs/3dLiIbattery
