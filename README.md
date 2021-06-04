@@ -41,7 +41,7 @@ of our 3D battery dataset. The pacakge contains (A) a data conversion component,
 |Task 5: Hypothesis Testing Script                  |     |      |      |      |     |      |   O  |  O   |      |      |
 |   Compile Final Presentation Poster               |     |      |      |      |     |      |      |  O   |   O  |      |
 |   Final Presentation                              |     |      |      |      |     |      |      |      |      |   O  |
-|   Current Team Progress                           |     |      |      |      |     |   O  |      |      |      |      |
+|   Current Team Progress                           |     |      |      |      |     |      |      |      |   O  |      |
 |[Removed Task]: Data-driven models Review          |     |      |      |      |     |   X  |   X  |  X   |      |      |
 |[Removed Task]: DataYoink Neural Network           |     |      |      |      |     |   X  |   X  |  X   |      |      |
 
