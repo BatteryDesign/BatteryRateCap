@@ -1,18 +1,14 @@
 [comment]: <> (Build Badge)
 [![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
 
-# Design Rule Discovery for 3D Li-ionbattery
-Three-dimensional (3D) batteries enable high power and energy by modifying the
-conventionally 1D planar architecture of battery electrodes into complicated 3D
-architectures. Many 3D battery architectures have been fabricated, but their
-geometry and spatial arrangement have not been fully optimized due to the lack
-of design rules. This project aims to assist the discovery new 3D battery design rules
-among existing 3D battery cases with data science approaches. <br/>
 
-### 3DLi-ionbattery Data Analysis and Visualization Python Package
-The final products of our project include a Python pacakge for visualizing and 
-analysing 3D battery data. The package is specifically tailored to the data structure 
-of our 3D battery dataset. The pacakge contains (A) a data conversion component,
+# BatRateCap: A Data Analysis and Visualization Python Package for Battery Rate Capability
+This package is intended for visualizing and analysing battery capacity-rate data.
+Rate capability is a battery's capability to maintain its nomical capacity while charged
+ and discharged at high current rate (C-rate). The rate capability of a battery can be judged
+ from its capacity-rate plot. <br/>
+
+The pacakge contains (A) a data conversion component,
 (B) a curve-fitting component, (C) a visulization component, and (D) a hypothesis testing component.
 ![alt text](https://github.com/3DBatteryDesign/3DLi-ionbattery/blob/0d35484f2e800dfc9533d3d9f63d8ed553d17337/doc/Python%20Package%20Component.png)
 
@@ -30,25 +26,17 @@ of our 3D battery dataset. The pacakge contains (A) a data conversion component,
    - Our hypothesis testing module can be used to determine whether a statistically-signicificant linear relationship exisits between 3D battery desgin parameters and performance.
    - Target users: Battery researchers who have battery desgin parameter and performance data.
 
-### Gantt Chart
-| Week                                              |  1  |  2   |  3   |  4   |  5  |  6   |  7   |  8   |  9   |  10  |
-|---------------------------------------------------|-----|------|------|------|-----|------|------|------|------|------|
-| Date                                              | 4/5 | 4/12 | 4/19 | 4/26 | 5/3 | 5/10 | 5/17 | 5/24 | 5/31 | 6/7  |
-|Task 1: Curve Fitting Script                       |  O  |   O  |   O  |      |     |      |      |      |      |      |
-|Task 2: Data Visualization                         |     |   O  |   O  |   O  |  O  |      |      |      |      |      |
-|Task 3: Plot conversion Script: Discharge curve    |     |      |      |      |     |   O  |   O  |  O   |      |      |
-|Task 4: Plot conversion Script: Capacity-cycle     |     |      |      |      |     |   O  |   O  |  O   |      |      |
-|Task 5: Hypothesis Testing Script                  |     |      |      |      |     |      |   O  |  O   |      |      |
-|   Compile Final Presentation Poster               |     |      |      |      |     |      |      |  O   |   O  |      |
-|   Final Presentation                              |     |      |      |      |     |      |      |      |      |   O  |
-|   Current Team Progress                           |     |      |      |      |     |   O  |      |      |      |      |
-|[Removed Task]: Data-driven models Review          |     |      |      |      |     |   X  |   X  |  X   |      |      |
-|[Removed Task]: DataYoink Neural Network           |     |      |      |      |     |   X  |   X  |  X   |      |      |
-
-### Research Workflow Chart
+### Resarch Workflow using $BatRateCap$
 ![Component specifications](https://user-images.githubusercontent.com/67809165/116957565-00c06480-ac4d-11eb-875b-8f5cb6cf1309.png)
 
-### Research Objectives
+### Software Denpendensies
+- Python
+- Other required Python packages can be found in environment.yml
+
+### How to Install
+
+
+### Example Demo after Installation
 **1. Estimate Parameters for Rate Performance**: One experimental measure for the
 the high-rate (power) perfromance of batteries (often composed of Sodium-ion or
 Lithium-ion) is the observation of the capacity Q for varying charge or discharge
@@ -99,15 +87,6 @@ approach. We will decided whether a general trend can be observed from data
 visualization. If no significant pattern is easily detectable from our dataset,
 we will determine whether it is a result of lack of data or that the pattern can 
 only be found with statistical appraches.<br/>
-
-### Research Outcomes
-**1. Estimate Parameters for Rate Performance**:
-Curve-fitting on our 3D battery data set shows that batteries with less than 4 points will return infinite standard deviation, which invalidate the fitting parameters. Filtering out the battery cases that have less than 4 data points, we have 11 cases that are successully fitted.<br/>
-**2. 3D Battery Design Rule 1 -- Rate-limiting coefficient n**:
-Visualization shows that the metric used to define rate-limiting mechanism for 1D batteries does not apply to 3D batteries. However, we are seeing a clear pattern that the same trend still holds. Therefore, with an adjusted metrics, rate-limiting mechanisms can still be identified by n values in 3D batteries. <br/>
-**3. 3D Battery Design Rule 2 -- Tau-L relationship**:
-Visualization suggests that 3D batteries has a concave second-order Tau-L realationship. <br/>
-**4. Mathematical versus Statistical model for 3D battery rate-limiting mechanism**: As the Tau-L realationship cannot be determined conclusively due to few data points available, this research objective cannot be further investigated. Following the component chart, we shift our project goal to identifying what type of data and how much more data is needed, as well as facilitating the data collection process. Therefore, Task 3 and 4 are updated to create data conversion scripts in order to obtain more rate-capacity data.<br/>
 
 ### References
 <a id="1">[1]</a>
