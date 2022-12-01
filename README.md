@@ -2,11 +2,20 @@
 [![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
 
 # *BatRateCap*: A Python Package for Analyzing and Visualizing Battery Rate Capability
-Rate capability is a battery's capability to maintain its nominal capacity (mAh) 
-while charge and discharged at high current. One experimental measure for the
-the rate capabiilty of batteries (often composed of Sodium-ion or
-Lithium-ion) is the observation of the capacity (mAh) for varying charge or discharge rates (C-rates, in 
-unit of 1/hour). According to an empirical model developed by Tian et al., the battery capacity, denoted by *Q*,
+This pacakge is intended to faciliate a qualitative analysis method on battery rate capability developed by [Tian et al.](https://doi.org/10.1038/s41467-019-09792-9). Rate capability is a battery's ability to maintain its maxnimum theoretical capacity (mAh, mAh/g, or mAh/cm^2) 
+when charged and discharged at high current rates (A, A/cm^2, or 1/hour). 
+
+
+
+This Python pacakge is intended for visualizing and 
+analysing battery rate capability data via the following components: (A) a data conversion component,
+(B) a curve-fitting component, (C) a visulization component, and (D) a hypothesis testing component.
+![alt text](https://github.com/3DBatteryDesign/3DLi-ionbattery/blob/0d35484f2e800dfc9533d3d9f63d8ed553d17337/doc/Python%20Package%20Component.png)
+
+
+
+
+According to an empirical model developed by Tian et al., the battery capacity, denoted by *Q*,
 is inversely proportional to the C-rate, denoted by *R* with the following Equation:<br/>
 [insert equation here]
 
@@ -18,11 +27,6 @@ which gives a physical interpretation of the rate-limiting transport mechanism i
 a battery cell.
 
 
-This Python pacakge is intended for visualizing and 
-analysing battery rate capability data, tailored to used for the capacity-rate data.
-The pacakge contains (A) a data conversion component,
-(B) a curve-fitting component, (C) a visulization component, and (D) a hypothesis testing component.
-![alt text](https://github.com/3DBatteryDesign/3DLi-ionbattery/blob/0d35484f2e800dfc9533d3d9f63d8ed553d17337/doc/Python%20Package%20Component.png)
 
 ### Use Cases
 1. Use case 1: Data Fitting
@@ -51,6 +55,7 @@ In general, these parameters relate the rate performance to physical quantities
 such as, the electrode thickness, porosity, and particle size of the conductive
 component, here, Lithium-ion. We use a least square curve fit procedure to
 extract the above parameters based on a capacity versus rate discharge dataset.<br/>
+
 **2. 3D Battery Design Rule 1 -- Rate-limiting coefficient n**:The parameter
 n found from fitting rate-capacity data determines how drastic a battery expereincce 
 capacity fade over increasing charge/discharge rates. In supercapacitor, n=1 signifies
@@ -85,13 +90,7 @@ we will determine whether it is a result of lack of data or that the pattern can
 only be found with statistical appraches.<br/>
 
 
-### References
-<a id="1">[1]</a>
-Tian, R., Park, SH., King, P., Cunningham, G., Coelho, J., Nicolosi, V.,
-Coleman, J. 
-Quantifying the factors limiting rate performance in battery electrodes.
-Nat Commun, 10, 1933 (2019).
-https://doi-org.offcampus.lib.washington.edu/10.1038/s41467-019-09792-9
-
+### Community Guidelines
+If you encounter any issue using *BatRateCap* or would like to request an additional feature, please report using a [Github issue]().
 
 
