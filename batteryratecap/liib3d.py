@@ -5,7 +5,7 @@ import re
 import pandas as pd
 from scipy.optimize import curve_fit
 
-# fit 3D Lithium ion battery dataset
+# fit battery capacity-rate dataset
 # data = os.path.join(os.getcwd(), 'liibattery3d')
 pathtomodule = os.path.abspath(__file__)
 dirname = os.path.dirname(pathtomodule)
@@ -14,9 +14,9 @@ data = os.path.join(dirname, 'data')
 
 def fitliib3d():
     '''
-    A curve fitting procedure to determine the discharge
-    rate constant, the n factor for the discharge rate,
-    and the specific capacity. We use the model outlined
+    A curve fitting procedure to determine the chracteristic time, 
+    the exponent *n*, and the maximum capacity (Q_max).
+    We use the model outlined
     by *R. Tian & S. Park et. al.*
     https://www.nature.com/articles/s41467-019-09792-9
     Here we fit all dataset in this package, and the we
@@ -148,7 +148,7 @@ def fit(params0, **kwargs):
 
 def fitfunc(Rdischarge, tau, n, specificQ):
     '''
-    Capacity versus rate discharge model outlined by
+    This is the empirical model outlined by
     https://www.nature.com/articles/s41467-019-09792-9
     '''
     normQ = specificQ * (1 -

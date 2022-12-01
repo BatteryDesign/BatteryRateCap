@@ -1,31 +1,33 @@
 [comment]: <> (Build Badge)
 [![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
 
-# *BatRateCap*: A Python Package for Analyzing and Visualizing Battery Rate Capability
-This pacakge is intended to faciliate a qualitative analysis method on battery rate capability developed by [Tian et al.](https://doi.org/10.1038/s41467-019-09792-9). Rate capability is a battery's ability to maintain its maxnimum theoretical capacity (mAh, mAh/g, or mAh/cm^2) 
+# *BatteryRateCap*: A Python Package for Analyzing and Visualizing Battery Rate Capability
+This pacakge is intended to faciliate qualitative analysis on battery 
+rate capability based on an empirical model appraoch developed by 
+[Tian et al.](https://doi.org/10.1038/s41467-019-09792-9). 
+Rate capability is a battery's ability to maintain its maxnimum 
+theoretical capacity (mAh, mAh/g, or mAh/cm^2) 
 when charged and discharged at high current rates (A, A/cm^2, or 1/hour). 
+According to Tian et al., a battery's capacity-rate data can be modeled 
+using the following empirical model:
+
+The empirical model quantifies the rate capability three fitting parameters:
+- The characterictic time (*$tau$*) associated with the charge
+and discharge time
+- The low rate specific capacity (*$Q_max$*) normalized with
+respect to a volume mass density
+- The exponent *n*, which gives a physical interpretation of the rate-limiting transport mechanism in 
+a battery.
 
 
+*BatteryRateCap* is composed of four components: <br/>
+A. a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate data
+B. a curve-fitting component to fit Tian et al.'s model to the experimental capacity-rate data
+C. a visulization component to plot the fitting parameters obtained from component (B) against other physical quantities such as the battery electrode thickness and porosity 
+D. a hypothesis testing component to compare different battery cases based on their rate capability charateristics. <br/>
 
-This Python pacakge is intended for visualizing and 
-analysing battery rate capability data via the following components: (A) a data conversion component,
-(B) a curve-fitting component, (C) a visulization component, and (D) a hypothesis testing component.
+The interdependency bewteen components are shown in the diagram below:
 ![alt text](https://github.com/3DBatteryDesign/3DLi-ionbattery/blob/0d35484f2e800dfc9533d3d9f63d8ed553d17337/doc/Python%20Package%20Component.png)
-
-
-
-
-According to an empirical model developed by Tian et al., the battery capacity, denoted by *Q*,
-is inversely proportional to the C-rate, denoted by *R* with the following Equation:<br/>
-[insert equation here]
-
-The empirical model describe the rate capability with three parameters:
-the characterictic time scale associated with charging
-and discharging the battery, the low rate specific capacity, normalized with
-respect to a volume mass density, and the exponent *n*, 
-which gives a physical interpretation of the rate-limiting transport mechanism in 
-a battery cell.
-
 
 
 ### Use Cases
@@ -42,53 +44,14 @@ a battery cell.
    - Our hypothesis testing module can be used to determine whether a statistically-signicificant linear relationship exisits between 3D battery desgin parameters and performance.
    - Target users: Battery researchers who have battery desgin parameter and performance data.
 
-### Workflow for using *BatRattCap*
+### Workflow for using *BatteryRateCap*
 ![Component specifications](https://user-images.githubusercontent.com/67809165/116957565-00c06480-ac4d-11eb-875b-8f5cb6cf1309.png)
 
 ### How to Install
 
 ### Software Dependency
-
-
-[[1]](#1) 
-In general, these parameters relate the rate performance to physical quantities
-such as, the electrode thickness, porosity, and particle size of the conductive
-component, here, Lithium-ion. We use a least square curve fit procedure to
-extract the above parameters based on a capacity versus rate discharge dataset.<br/>
-
-**2. 3D Battery Design Rule 1 -- Rate-limiting coefficient n**:The parameter
-n found from fitting rate-capacity data determines how drastic a battery expereincce 
-capacity fade over increasing charge/discharge rates. In supercapacitor, n=1 signifies
-the dominating resistance resulting in capacity fade is dues to in sufficeint conduction.
-Likewise, n=1/2 represents a purely diffusion-limited cell. This is an empirical
-metric derived from rate-capacity fitting to supercapacitors. In *R. Tian & S. Park et al*,
-it is assumed that 1D Lithium-ion/Sodium-ion batteries follow the same metric. 
-We analyze the usability of this metric for 3D batteries by visualizing the distribution
-of n values fitted from our 3D battery data. Unlike the baseline paper where most n values
-lie in the range of 0-2, our n values have a widely spreaded distribution with magnitude
-as high as 8. The preliminary result shows that the n metric used for super capacitors
-does not apply to 3D batteries. Further visualization on the n values versus 3D 
-architecture types is required to determine the underlying factors for the variations in n.
-Here we hypothesize that at least one additional rate-limiting mechanism, the kinetic
-limitation, exists in 3D batteries and that there exists a different n metric for 3D
-batteries. <br/>
-**3. 3D Battery Design Rule 2 -- Tau-L relationship**: A quadratic realationship is 
-found between the fitting parameter characterisitc time tau and the electrode 
-thickness L in 1D batteries. We hypothesize that this relationship does not 
-apply to 3D batteries. We will validate out hypothesis by plotting tau versus
-L data from our 3D battery data. We will also visualize tau versus 3D electrode
-charateristic length data among 3D architecture groups to analyze whether or not
-a linear/quadratic relationship can be found.<br/>
-**4. Mathematical versus Statistical model for 3D battery rate-limiting mechanism**:
-Based on the tau-L realationship, our baseline paper discovered a mathematical 
-model that relate tau to L and material paramteres including the diffusivities,
-conductitivites, and the particle radius for 1D batteries. Here we will determine
-whether a similar mathematical model can be found for 3D battereies with the same
-approach. We will decided whether a general trend can be observed from data
-visualization. If no significant pattern is easily detectable from our dataset,
-we will determine whether it is a result of lack of data or that the pattern can 
-only be found with statistical appraches.<br/>
-
+- Python 3
+- See environment.yml for all Python package dependencies
 
 ### Community Guidelines
 If you encounter any issue using *BatRateCap* or would like to request an additional feature, please report using a [Github issue]().
