@@ -2,13 +2,13 @@ import os
 
 import pandas as pd
 
-import liibattery3d
-from liibattery3d import liib3d
+import batteryratecap
+from batteryratecap import fitcaprate
 
-data_path = os.path.join(liibattery3d.__path__[0], 'data')
+data_path = os.path.join(batteryratecap.__path__[0], 'data')
 
 
-def test_fitliib3d():
+def test_fitmodel():
     '''
     Test case for curve fit module to all dataset of
     3d lithium ion battery prescribed in data dir
@@ -16,7 +16,7 @@ def test_fitliib3d():
     data dir, then assert output size of 'fitparametersliib3d.csv'
     '''
     # Write parameters to csv file with fit function
-    liib3d.fitliib3d()
+    fitcaprate.fitmodel()
     # test 1; check that file exists
     try:
         filepath = os.path.join(data_path, "fitparametersliib3d.csv")
@@ -28,7 +28,7 @@ def test_fitliib3d():
     # test 2; check output size of fit parameter csv file
     # read output of the optimized parameters
     try:
-        filepath_out = os.path.join('../liibattery3d/data',
+        filepath_out = os.path.join('../batteryratecap/data',
                                     'fitparametersliib3d.csv')
         dframe_out = pd.read_csv(filepath_out)
         numcolumns = 8
@@ -54,7 +54,7 @@ def test_fit():
     n = 1
     specificQ = 100
     params0 = [tau, n, specificQ]  # intial guess parameter
-    popt, _ = liib3d.fit(params0, filename=filepath)
+    popt, _ = fitcaprate.fit(params0, filename=filepath)
     try:
         lenparam = len(popt)
         assert(lenparam == 3)
@@ -80,7 +80,7 @@ def test_fitfunc():
     dframe = pd.read_csv(filepath)
     Rdischarge = dframe.iloc[:, 0].to_numpy()
     # estimate normalize mass Q from model
-    normQ = liib3d.fitfunc(Rdischarge, tau, n, specificQ)
+    normQ = fitcaprate.fitfunc(Rdischarge, tau, n, specificQ)
     # first check the shape of normQ output
     try:
         shape_normQ = normQ.shape

@@ -12,7 +12,7 @@ dirname = os.path.dirname(pathtomodule)
 data = os.path.join(dirname, 'data')
 
 
-def fitliib3d():
+def fitmodel():
     '''
     A curve fitting procedure to determine the chracteristic time, 
     the exponent *n*, and the maximum capacity (Q_max).
