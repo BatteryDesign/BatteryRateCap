@@ -24,7 +24,7 @@ def fitmodel():
     each dataset, in a csv file
     '''
     # load dataset
-    filepath = os.path.join(data, "liibattery3d_performancelog.xls")
+    filepath = os.path.join(data, "performancelog.xls")
     dframe = pd.read_excel(filepath, sheet_name='3_CapacityRate',
                            header=[0, 1, 2])
 
@@ -103,7 +103,7 @@ def fitmodel():
         popt_dframe = popt_dframe.append(row_series, ignore_index=True)
 
     # Write dataframe of optimized parameters to csv file
-    outputpath = os.path.join(data, "fitparametersliib3d.csv")
+    outputpath = os.path.join(data, "fitparameters.csv")
     popt_dframe.to_csv(path_or_buf=outputpath, index=False)
     return
 

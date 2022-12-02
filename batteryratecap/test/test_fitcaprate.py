@@ -12,14 +12,14 @@ def test_fitmodel():
     '''
     Test case for curve fit module to all dataset of
     3d lithium ion battery prescribed in data dir
-    first check that output exists as 'fitparametersliib3d.csv' in
-    data dir, then assert output size of 'fitparametersliib3d.csv'
+    first check that output exists as 'fitparameters.csv' in
+    data dir, then assert output size of 'fitparameters.csv'
     '''
     # Write parameters to csv file with fit function
     fitcaprate.fitmodel()
     # test 1; check that file exists
     try:
-        filepath = os.path.join(data_path, "fitparametersliib3d.csv")
+        filepath = os.path.join(data_path, "fitparameters.csv")
         filepathexists = os.path.exists(filepath)
         assert(filepathexists)
     except AssertionError:
@@ -29,7 +29,7 @@ def test_fitmodel():
     # read output of the optimized parameters
     try:
         filepath_out = os.path.join('../batteryratecap/data',
-                                    'fitparametersliib3d.csv')
+                                    'fitparameters.csv')
         dframe_out = pd.read_csv(filepath_out)
         numcolumns = 8
         shapeout = (dframe_out.shape[1] == numcolumns)
