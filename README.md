@@ -13,7 +13,9 @@ theoretical capacity when charged and discharged at high current rates.
 According to Tian et al., a battery's capacity versus rate data, also called the capacity-rate data,can be analyzed 
 using the following empirical model:<br/>
 
-*Q = Q<sub>max</sub>(1-(R&tau)<sup>n</sup>(1-e<sup>-(R&tau)<sup>-n</sup></sup>))* <br/>
+```
+Q = Q<sub>max</sub>(1-(R\tau)<sup>n</sup>(1-e<sup>-(R\tauτ)<sup>-n</sup></sup>))* <br/>
+```
 
 By fitting the capcaity-rate data from experiments to the above empirical model, we can obtain
 three fitting parameters that quantify the performace of a battery:
