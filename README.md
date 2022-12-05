@@ -2,25 +2,29 @@
 [![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
 
 # *BatteryRateCap*: A Python Package for Analyzing and Visualizing Battery Rate Capability
-This pacakge is intended to faciliate qualitative analysis on battery 
+This pacakge is intended to faciliate analysis on battery 
 rate capability based on an empirical model appraoch developed by 
 [Tian et al.](https://doi.org/10.1038/s41467-019-09792-9). 
+A common phenomenon in intercalation batteries is decreasing battery capacity (mAh, mAh/g, or mAh/$cm^2$)
+to increasing charge and discharge current rate (A, A/$cm^2$, or 1/hour). 
 Rate capability is a battery's ability to maintain its maxnimum 
-theoretical capacity (mAh, mAh/g, or mAh/cm^2) 
-when charged and discharged at high current rates (A, A/cm^2, or 1/hour). 
-According to Tian et al., a battery's capacity-rate data can be modeled 
-using the following empirical model:
+theoretical capacity when charged and discharged at high current rates. 
+According to Tian et al., a battery's capacity versus rate data, also called the capacity-rate data,can be analyzed 
+using the following empirical model:<br/>
 
-The empirical model quantifies the rate capability three fitting parameters:
-- The characterictic time (*$tau$*) associated with the charge
-and discharge time
-- The low rate specific capacity (*$Q_max$*) normalized with
-respect to a volume mass density
-- The exponent *n*, which gives a physical interpretation of the rate-limiting transport mechanism in 
+Q = $Q_max$(1-$(R\tau)^n$(1-$e^-(R\tau)^-n$)) <br/>
+
+By fitting the capcaity-rate data from experiments to the above empirical model, we can obtain
+three fitting parameters that quantify the performace of a battery:
+- The characterictic time (*$\tau$*) is associated with the charge
+and discharge time. A smaller $\tau$ means higher rate capability.
+- The low rate specific capacity (*$Q_max$*) measures a battery's maximum theoretical capacity, which normalizes
+$\tau$ and *n* such that batteries made with different materials can be compared on the same scale.
+- The exponent *n* gives a physical interpretation of the rate-limiting transport mechanism in 
 a battery.
 
 
-*BatteryRateCap* is composed of four components: <br/>
+*BatteryRateCap* is composed of four components, each supports different functions to allow the rate capability analysis approach developed by Tian et al.: <br/>
 A. a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate data
 B. a curve-fitting component to fit Tian et al.'s model to the experimental capacity-rate data
 C. a visulization component to plot the fitting parameters obtained from component (B) against other physical quantities such as the battery electrode thickness and porosity 
@@ -44,10 +48,11 @@ The interdependency bewteen components are shown in the diagram below:
    - Our hypothesis testing module can be used to determine whether a statistically-signicificant linear relationship exisits between 3D battery desgin parameters and performance.
    - Target users: Battery researchers who have battery desgin parameter and performance data.
 
-### Workflow for using *BatteryRateCap*
-![Component specifications](https://user-images.githubusercontent.com/67809165/116957565-00c06480-ac4d-11eb-875b-8f5cb6cf1309.png)
-
 ### How to Install
+*BatteryRateCap* can be installed by cloning the repo or via pip:<\br>
+```
+pip install batteryratecap
+```
 
 ### Software Dependency
 - Python 3
