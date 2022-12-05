@@ -62,7 +62,7 @@ charateristics. <br/>
    - Target users: Battery researchers who have battery desgin parameter and performance data.
 
 ## How to Install
-*BatteryRateCap* can be installed by cloning the repo or via pip:<\br>
+*BatteryRateCap* can be installed by cloning the entire repoitory or via pip:<\br>
 ```
 pip install batteryratecap
 ```
