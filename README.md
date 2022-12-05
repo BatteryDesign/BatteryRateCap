@@ -31,23 +31,23 @@ For more insight about the fitting parameters, please visit [Tian et
 al.(2019)](https://doi.org/10.1038/s41467-019-09792-9) and [Hung et 
 al.(2022)](https://doi.org/10.1021/acsenergylett.2c02208).
  
-https://github.com/BatteryDesign/BatteryRateCap
-
-*BatteryRateCap* is composed of four components, each supports different functions to allow the rate capability analysis approach developed by Tian et al.: <br/>
-- A. a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate 
-data
-- B. a curve-fitting component to fit Tian et al.'s model to the experimental capacity-rate data
-- C. a visulization component to plot the fitting parameters obtained from component (B) against other physical 
-quantities such as the battery electrode thickness and porosity 
-- D. a hypothesis testing component to compare different battery cases based on their rate capability 
-charateristics. <br/>
-
-The interdependency bewteen components are shown in the diagram below:
 ![alt 
 text](https://github.com/BatteryDesign/BatteryRateCap/blob/main/doc/Component_chart.jpg)
 
+*BatteryRateCap* is composed of four components, each supports a function 
+to allow or enhance the rate capability analysis approach developed by Tian et al.
+The interdependency bewteen components are shown in the diagram above, where a brief desciprtion of each component can be found below:<br/>
+- (A) a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate 
+data
+- (B) a curve-fitting component to fit Tian et al.'s model to the experimental capacity-rate data
+- (C) a visulization component to plot the fitting parameters obtained from component (B) against other physical 
+quantities such as the battery electrode thickness and porosity 
+- (D) a hypothesis testing component to compare different battery cases based on their rate capability 
+charateristics. <br/>
 
-### Use Cases
+
+
+## Use Cases
 1. Use case 1: Data Fitting
    - Our curve-fitting module is for any researchers who would like to fit their capacity-rate data and attain fitting parameters including charatersitic time, n value, and capacity Q as described in the *Research Objectives* section. 
    - Target users: Battery researchers who have rate-capacity data
@@ -61,17 +61,19 @@ text](https://github.com/BatteryDesign/BatteryRateCap/blob/main/doc/Component_ch
    - Our hypothesis testing module can be used to determine whether a statistically-signicificant linear relationship exisits between 3D battery desgin parameters and performance.
    - Target users: Battery researchers who have battery desgin parameter and performance data.
 
-### How to Install
+## How to Install
 *BatteryRateCap* can be installed by cloning the repo or via pip:<\br>
 ```
 pip install batteryratecap
 ```
 
-### Software Dependency
+## Software Dependency
 - Python 3
 - See environment.yml for all Python package dependencies
 
-### Community Guidelines
-If you encounter any issue using *BatRateCap* or would like to request an additional feature, please report using a [Github issue]().
+## Community Guidelines
+If you encounter any issue using *BatRateCap* or would like to request an additional feature, please report using a [Github 
+issue](https://github.com/BatteryDesign/BatteryRateCap/issues). If you would like to directly contribute to this project, please email the 
+project PI Dr. Corie Cobb at clcobb@uw.edu.
 
 
