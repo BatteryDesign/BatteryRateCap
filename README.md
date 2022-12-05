@@ -2,31 +2,36 @@
 [![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
 
 # *BatteryRateCap*: A Python Package for Analyzing and Visualizing Battery Rate Capability
-This pacakge is intended to faciliate analysis on battery 
-rate capability based on an empirical model appraoch developed by 
+This pacakge is intended to faciliate battery 
+rate capability analysis based on an empirical model approach developed by 
 [Tian et al.](https://doi.org/10.1038/s41467-019-09792-9). 
 A common phenomenon in intercalation batteries is decreasing battery capacity (mAh, mAh/g, or 
 mAh/cm<sup>2</sup>)
 to increasing charge and discharge current rate (A, A/cm<sup>2</sup>, or 1/hour). 
 Rate capability is a battery's ability to maintain its maxnimum 
 theoretical capacity when charged and discharged at high current rates. 
-According to Tian et al., a battery's capacity versus rate data, also called the capacity-rate data,can be analyzed 
+According to Tian et al., a battery's capacity (*Q*) versus current rate (*R*) data, also called the 
+capacity-rate data,can be analyzed 
 using the following empirical model:<br/>
 
 
 Q = Q<sub>max</sub> ( 1 - (R $\tau$	)<sup>n</sup> (1-e<sup>-(R $\tau$	
 )<sup>-n</sup></sup>)) <br/>
 
-By fitting the capcaity-rate data from experiments to the above empirical model, we can obtain
+By fitting the capcaity-rate data to the empirical model, we can obtain
 three fitting parameters that quantify the performace of a battery:
-- The characterictic time ( $\tau$ ) is associated with the charge
-and discharge time. A smaller $\tau$ means higher rate capability.
+- The characterictic time ( $\tau$ ) is associated with the time required to fully charge or discharge a 
+battery. A smaller $\tau$ means higher rate capability.
 - The low rate specific capacity (*Q<sub>max</sub>*) measures a battery's maximum theoretical capacity, which 
 normalizes
 $\tau$ and *n* such that batteries made with different materials can be compared on the same scale.
 - The exponent *n* gives a physical interpretation of the rate-limiting transport mechanism in 
 a battery.
-
+For more insight about the fitting parameters, please visit [Tian et 
+al.(2019)](https://doi.org/10.1038/s41467-019-09792-9) and [Hung et 
+al.(2022)](https://doi.org/10.1021/acsenergylett.2c02208).
+ 
+https://github.com/BatteryDesign/BatteryRateCap
 
 *BatteryRateCap* is composed of four components, each supports different functions to allow the rate capability analysis approach developed by Tian et al.: <br/>
 - A. a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate 
