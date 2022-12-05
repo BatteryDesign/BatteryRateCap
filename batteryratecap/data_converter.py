@@ -69,7 +69,7 @@ def excel_merge(dataframe, xls_file, sheetname):
     print('saved succesfully to' + xls_file)
     return
 
-def capacity_cycle(capacity_cycle_array, n, current_list, current_unit):
+def capacity_cycle(capacity_cycle_array, n, current_list, current_unit, capacity_unit):
     '''
     This function converts capacity-cycle data to capacity-rate plots.
     For different selections of paper/set, the user will have to adjust 'n_components' until the groups
@@ -79,6 +79,7 @@ def capacity_cycle(capacity_cycle_array, n, current_list, current_unit):
     - n: number of C-rates, or 'stairs'
     - current_list: a list of current rates or current densities
     - current_unit: a text string of current unit
+    - capacity_unit: a text string od capacity unit
     '''
     model = GaussianMixture(n_components = n)
     model.fit(capacity_cycle_array)
@@ -91,7 +92,7 @@ def capacity_cycle(capacity_cycle_array, n, current_list, current_unit):
     for cluster in clusters:
         row_ix = np.where(prediction == cluster)
         plt.scatter(capacity_cycle_array[row_ix, 0], capacity_cycle_array[row_ix, 1])
-    plt.ylabel("Capacity (mAh/g)")
+    plt.ylabel("Capacity "+capacity_unit)
     plt.xlabel("Cycle #")
     plt.show
     ## Return the means of each 'stair' and sort
@@ -99,7 +100,7 @@ def capacity_cycle(capacity_cycle_array, n, current_list, current_unit):
     means = means[np.argsort(means[:, 0])]
     means_of_groups = means[:,1]
     means_of_groups = pd.DataFrame(means_of_groups)
-    means_of_groups = means_of_groups.rename(columns={0: "Capacity (mAh/cm²)"})
+    means_of_groups = means_of_groups.rename(columns={0: "Capacity"+capacity_unit})
     ## Get list of current rates or current densities
     current_list = pd.DataFrame(np.array(current_list))
     current_header = "Current " + current_unit
