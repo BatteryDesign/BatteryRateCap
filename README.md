@@ -5,21 +5,23 @@
 This pacakge is intended to faciliate analysis on battery 
 rate capability based on an empirical model appraoch developed by 
 [Tian et al.](https://doi.org/10.1038/s41467-019-09792-9). 
-A common phenomenon in intercalation batteries is decreasing battery capacity (mAh, mAh/g, or mAh/$cm^2$)
-to increasing charge and discharge current rate (A, A/$cm^2$, or 1/hour). 
+A common phenomenon in intercalation batteries is decreasing battery capacity (mAh, mAh/g, or 
+mAh/cm<sup>2</sup>)
+to increasing charge and discharge current rate (A, A/cm<sup>2</sup>, or 1/hour). 
 Rate capability is a battery's ability to maintain its maxnimum 
 theoretical capacity when charged and discharged at high current rates. 
 According to Tian et al., a battery's capacity versus rate data, also called the capacity-rate data,can be analyzed 
 using the following empirical model:<br/>
 
-Q = $Q_max$(1-$(R\tau)^n$(1-$e^-(R\tau)^-n$)) <br/>
+*Q = Q<sub>max</sub>(1-(R&tau)<sup>n</sup>(1-e<sup>-(R&tau)<sup>-n</sup></sup>))* <br/>
 
 By fitting the capcaity-rate data from experiments to the above empirical model, we can obtain
 three fitting parameters that quantify the performace of a battery:
-- The characterictic time (*$\tau$*) is associated with the charge
+- The characterictic time (*&tau*) is associated with the charge
 and discharge time. A smaller $\tau$ means higher rate capability.
-- The low rate specific capacity (*$Q_max$*) measures a battery's maximum theoretical capacity, which normalizes
-$\tau$ and *n* such that batteries made with different materials can be compared on the same scale.
+- The low rate specific capacity (*Q<sub>max</sub>*) measures a battery's maximum theoretical capacity, which 
+normalizes
+*&tau* and *n* such that batteries made with different materials can be compared on the same scale.
 - The exponent *n* gives a physical interpretation of the rate-limiting transport mechanism in 
 a battery.
 
