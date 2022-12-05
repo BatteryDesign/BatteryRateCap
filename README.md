@@ -29,10 +29,13 @@ a battery.
 
 
 *BatteryRateCap* is composed of four components, each supports different functions to allow the rate capability analysis approach developed by Tian et al.: <br/>
-A. a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate data
-B. a curve-fitting component to fit Tian et al.'s model to the experimental capacity-rate data
-C. a visulization component to plot the fitting parameters obtained from component (B) against other physical quantities such as the battery electrode thickness and porosity 
-D. a hypothesis testing component to compare different battery cases based on their rate capability charateristics. <br/>
+- A. a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate 
+data
+- B. a curve-fitting component to fit Tian et al.'s model to the experimental capacity-rate data
+- C. a visulization component to plot the fitting parameters obtained from component (B) against other physical 
+quantities such as the battery electrode thickness and porosity 
+- D. a hypothesis testing component to compare different battery cases based on their rate capability 
+charateristics. <br/>
 
 The interdependency bewteen components are shown in the diagram below:
 ![alt 
