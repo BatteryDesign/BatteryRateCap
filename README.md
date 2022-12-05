@@ -14,7 +14,7 @@ According to Tian et al., a battery's capacity versus rate data, also called the
 using the following empirical model:<br/>
 
 ```math
-Q = Q<sub>max</sub> \left(1-(R \tau )<sup>n</sup> \left(1-e<sup>-\left(R \tau 
+Q = Q<sub>max</sub> \left(1-\left(R \tau )\right<sup>n</sup> \left(1-e<sup>-\left(R \tau 
 )\right<sup>-n</sup></sup>)\right)\right
 ``` <br\>
 
