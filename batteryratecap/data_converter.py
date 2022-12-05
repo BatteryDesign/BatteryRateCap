@@ -91,8 +91,8 @@ def capacity_cycle(capacity_cycle_array, n, current_list, current_unit):
     for cluster in clusters:
         row_ix = np.where(prediction == cluster)
         plt.scatter(capacity_cycle_array[row_ix, 0], capacity_cycle_array[row_ix, 1])
-    plt.xlabel("Capacity (mAh/g)")
-    plt.ylabel("Cycle #")
+    plt.ylabel("Capacity (mAh/g)")
+    plt.xlabel("Cycle #")
     plt.show
     ## Return the means of each 'stair' and sort
     means = model.means_
