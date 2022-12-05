@@ -14,8 +14,8 @@ According to Tian et al., a battery's capacity versus rate data, also called the
 using the following empirical model:<br/>
 
 
-$Q = Q<sub>max</sub> \left(1-\left(R \tau )\right<sup>n</sup> \left(1-e<sup>-\left(R \tau 
-)\right<sup>-n</sup></sup>)\right)\right$<br\>
+Q = Q<sub>max</sub> ( 1 - (R $\tau$	)<sup>n</sup> (1-e<sup>-(R $\tau$	
+)<sup>-n</sup></sup>)) <br/>
 
 By fitting the capcaity-rate data from experiments to the above empirical model, we can obtain
 three fitting parameters that quantify the performace of a battery:
