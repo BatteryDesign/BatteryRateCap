@@ -31,7 +31,7 @@ C. a visulization component to plot the fitting parameters obtained from compone
 D. a hypothesis testing component to compare different battery cases based on their rate capability charateristics. <br/>
 
 The interdependency bewteen components are shown in the diagram below:
-![alt text](https://github.com/3DBatteryDesign/3DLi-ionbattery/blob/0d35484f2e800dfc9533d3d9f63d8ed553d17337/doc/Python%20Package%20Component.png)
+![alt text](https://github.com/BatteryDesign/BatteryRateCap/doc/Component_chart.png)
 
 
 ### Use Cases
