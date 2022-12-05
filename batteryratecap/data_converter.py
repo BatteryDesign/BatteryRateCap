@@ -3,10 +3,12 @@ import pandas as pd
 import os
 import matplotlib
 from matplotlib import pyplot as plt
-%matplotlib inline
 import sklearn
 import openpyxl
 import xlwt
+import sklearn
+from sklearn.datasets import make_classification
+from sklearn.mixture import GaussianMixture
 
 
 def potential_rate(xls_file, sheet_name, paper_num, set_num, c_rate):
@@ -66,3 +68,41 @@ def excel_merge(dataframe, xls_file, sheetname):
     assert type(sheetname) == str, 'sheetname must be a string'
     print('saved succesfully to' + xls_file)
     return
+
+def capacity_cycle(capacity_cycle_array, n, current_list, current_unit):
+    '''
+    This function converts capacity-cycle data to capacity-rate plots.
+    For different selections of paper/set, the user will have to adjust 'n_components' until the groups
+    are properly grouped, as seen in the plot below
+    Inputs
+    - capacity_cycle_array: nx2 capacity vs cycle # array
+    - n: number of C-rates, or 'stairs'
+    - current_list: a list of current rates or current densities
+    - current_unit: a text string of current unit
+    '''
+    model = GaussianMixture(n_components = n)
+    model.fit(capacity_cycle_array)
+    ## Use the model to make predictions about which group each datapoint belongs to
+    ## predictions stored as an np array with indexes corresponding to points, and values to their assigned class
+    prediction = model.predict(capacity_cycle_array)
+    ## np.array of the unique classes 
+    clusters = np.unique(prediction)
+    ## Plot the points now that they are grouped
+    for cluster in clusters:
+        row_ix = np.where(prediction == cluster)
+        plt.scatter(capacity_cycle_array[row_ix, 0], capacity_cycle_array[row_ix, 1])
+    plt.xlabel("Capacity (mAh/g)")
+    plt.ylabel("Cycle #")
+    plt.show
+    ## Return the means of each 'stair' and sort
+    means = model.means_
+    means = means[np.argsort(means[:, 0])]
+    means_of_groups = means[:,1]
+    means_of_groups = pd.DataFrame(means_of_groups)
+    means_of_groups = means_of_groups.rename(columns={0: "Capacity (mAh/cm²)"})
+    ## Get list of current rates or current densities
+    current_list = pd.DataFrame(np.array(current_list))
+    current_header = "Current " + current_unit
+    current_list = current_list.rename(columns={0: current_header})
+    capacity_vs_current_density_df = pd.concat([current_list, means_of_groups], axis = 1)
+    return capacity_vs_current_density_df
