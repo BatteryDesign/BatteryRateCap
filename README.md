@@ -2,16 +2,6 @@
 [![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
 
 
-# BatRateCap: A Data Analysis and Visualization Python Package for Battery Rate Capability
-This package is intended for visualizing and analysing battery capacity-rate data.
-Rate capability is a battery's capability to maintain its nomical capacity while charged
- and discharged at high current rate (C-rate). The rate capability of a battery can be judged
- from its capacity-rate plot. <br/>
-
-The pacakge contains (A) a data conversion component,
-(B) a curve-fitting component, (C) a visulization component, and (D) a hypothesis testing component.
-![alt text](https://github.com/3DBatteryDesign/3DLi-ionbattery/blob/0d35484f2e800dfc9533d3d9f63d8ed553d17337/doc/Python%20Package%20Component.png)
-=======
 # *BatteryRateCap*: A Python Package for Analyzing and Visualizing Battery Rate Capability
 This pacakge is intended to faciliate battery 
 rate capability analysis based on an empirical model approach developed by 
