@@ -1,7 +1,7 @@
 import numpy as np
-from liibattery3d.correlationtest import correlation_hypothesis
-from liibattery3d.correlationtest import plot_linear_regression
-from liibattery3d.correlationtest import linear_outliers
+from batteryratecap.correlationtest import correlation_hypothesis
+from batteryratecap.correlationtest import plot_linear_regression
+from batteryratecap.correlationtest import linear_outliers
 
 
 def test_correlation_hypothesis():

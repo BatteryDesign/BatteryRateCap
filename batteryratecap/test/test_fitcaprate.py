@@ -11,7 +11,7 @@ data_path = os.path.join(batteryratecap.__path__[0], 'data')
 def test_fitmodel():
     '''
     Test case for curve fit module to all dataset of
-    3d lithium ion battery prescribed in data dir
+    lithium ion battery prescribed in data dir
     first check that output exists as 'fitparameters.csv' in
     data dir, then assert output size of 'fitparameters.csv'
     '''
@@ -43,7 +43,7 @@ def test_fitmodel():
 
 def test_fit():
     """
-    Test case for curve fit module to 3d lithium ion battery
+    Test case for curve fit module to lithium ion battery
     test the output size in an array of three elements corresponding
     to the optimized, desired, paramters: the characteristic time tau,
     the n fractor, and specific capacity Q
