@@ -11,17 +11,20 @@ from sklearn.datasets import make_classification
 from sklearn.mixture import GaussianMixture
 
 
-def potential_rate(xls_file, sheet_name, paper_num, set_num, c_rate):
+def potential_rate(input_file, sheet_name, output_file, paper_num, set_num):
     """ 
     This function converts potential vs. capacity data to capacity vs c-rate data
-    The Highest x-value (capacity [mAh]) from the charge/discharge graph
+    The Highest x-value (capacity [mAh]) from the charge/discharge graph.
+    The input excel silfe has the format that each excel file has
+    many sheets and each sheet, separated by charge/discharge C-rate,
+    contains many papers. Each paper can have more than 1 set of capacity
+    versus voltage data, each occupying 1 column (i.e. each set takes up two columns).
     PARAMETERS
     ----------
     1) Excel file (file path) - string
     2) sheetnames - list
     3) Paper # - string
     4) Set # - integer: max number of sets
-    5) c_rate - dataframe
     RETURNS
     -------
     Capacity vs c-rate dataframe
@@ -31,13 +34,20 @@ def potential_rate(xls_file, sheet_name, paper_num, set_num, c_rate):
     # Test that the input 'set_num' is an integer
     assert type(set_num) == int, 'set_num must be an integer'
     # Dataframing the interested potential vs capacity excel sheet
-    df = pd.read_excel(xls_file, sheet_name, header = [0,1,2]) #
+    df = pd.read_excel(input_file, sheet_name, header = [0,1,2]) #
     # Merging multiple spreadsheets
     df_sheets = []
     for i in sheet_name:
         df_sheets.append(df[i])
     df_merged = pd.concat(df_sheets, axis = 1)
-    # Selecting maximum capacity values for each dataset and concatnate with corresponding c-rates or current density
+    # Get C-rate numerical values
+    rates = []
+    for name in sheet_name:
+        rate = name.split("C_")[0]
+        rates.append(rate)
+    c_rate = pd.DataFrame({"C rate": rates})
+    # Selecting maximum capacity values for each dataset and
+    # concatnate with corresponding c-rates or current density
     caplist = []
     for i in set_list:
         set_i = (df_merged[paper_num, i])
@@ -47,6 +57,12 @@ def potential_rate(xls_file, sheet_name, paper_num, set_num, c_rate):
     df_cap_rate = pd.concat(caplist, axis = 1)
     # Test that the output is a dataframe
     assert type(c_rate) == type(df_cap_rate), 'The output must be a dataframe'
+    # Exporting the converted dataframe to an excel file
+    df_cap_rate.to_excel(output_file, sheet_name = paper_num, index=False, header=True)
+    # Test that the sheet name is a string
+    assert type(paper_num) == str, 'sheetname must be a string'
+    print('saved succesfully to' + output_file)
+
     return df_cap_rate
 
 
