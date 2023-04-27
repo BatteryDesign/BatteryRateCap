@@ -11,14 +11,19 @@ from sklearn.datasets import make_classification
 from sklearn.mixture import GaussianMixture
 
 
-def potential_rate(input_file, sheet_name, output_file, paper_num, set_num):
+def potential_rate_paper_set(input_file, sheet_name, output_file, paper_num, set_num):
     """ 
     This function converts potential vs. capacity data to capacity vs c-rate data
     The Highest x-value (capacity [mAh]) from the charge/discharge graph.
-    The input excel silfe has the format that each excel file has
+    The input excel file has the format that each excel file has
     many sheets and each sheet, separated by charge/discharge C-rate,
     contains many papers. Each paper can have more than 1 set of capacity
     versus voltage data, each occupying 1 column (i.e. each set takes up two columns).
+    The first row of a sheet specifies the paper code number, e.g. 'paper # 1', and
+    the second row of a sheet spcifies the battery's set number, e.g. 'set # 1', and
+    the third row of a sheet contains the quantity name and units, e.g. 'Capacity (mAh/g)'
+    and 'Voltage (V)'.
+    
     PARAMETERS
     ----------
     1) Excel file (file path) - string
@@ -62,8 +67,56 @@ def potential_rate(input_file, sheet_name, output_file, paper_num, set_num):
     # Test that the sheet name is a string
     assert type(paper_num) == str, 'sheetname must be a string'
     print('saved succesfully to' + output_file)
-
     return df_cap_rate
+
+
+def potential_rate_all(input_file, output_file):
+    """ 
+    This function converts and dataframes all voltage potential data and separates them
+    by paper and set numbers such that the users can see what options they have.
+    
+    The input excel file has the format that each excel file has
+    many sheets and each sheet, separated by charge/discharge C-rate,
+    contains many papers. Each paper can have more than 1 set of capacity
+    versus voltage data, each occupying 1 column (i.e. each set takes up two columns).
+    The first row of a sheet specifies the paper code number, e.g. 'paper # 1', and
+    the second row of a sheet spcifies the battery's set number, e.g. 'set # 1', and
+    the third row of a sheet contains the quantity name and units, e.g. 'Capacity (mAh/g)'
+    and 'Voltage (V)'.
+    
+    PARAMETERS
+    ----------
+    1) Excel file (file path) - string
+    2) 
+    RETURNS
+    -------
+    A voltage-capaity dataframe by paper and set number
+    """
+    # Read all sheets in the input file into a dictionary
+    dict_excel = pd.read_excel(input_file, sheet_name=None, header = [0,1,2])
+    sheetnames = list(dict_excel.keys())
+    dict_excel[sheetnames[0]]
+    df_cap_rate = pd.DataFrame()
+    for i, sheetname in enumerate(sheetnames):
+        df = dict_excel[sheetname]
+        rate = sheetname.split("C_")[0]
+        for headers, columnval in df.iteritems():
+            paper_num, set_num, quan = headers
+            # Takes only the capacity data
+            if 'capacity' in quan or 'Capacity' in quan:
+                max_cap = np.nanmax(columnval.values)
+                # Must create the dataframe first before adding multiple headers
+                newdf = pd.DataFrame([[rate, max_cap]])
+                # Add headers
+                newdf_header = [[paper_num, paper_num],[set_num, set_num],['C-rate', quan]]
+                newdf.columns = newdf_header
+                df_cap_rate = pd.concat([df_cap_rate, newdf])
+    # apply lambda function to each column to drop Nans
+    df_cap_rate_all = df_cap_rate.apply(lambda x: pd.Series(x.dropna().values))
+    # Export dataframe to Excel
+    df_cap_rate_all.to_excel(output_file, sheet_name = 'CaapacityRate', index=True, header=True)
+    return df_cap_rate_all
+
 
 
 def excel_merge(dataframe, xls_file, sheetname):
