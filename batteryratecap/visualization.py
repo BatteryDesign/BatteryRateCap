@@ -1,6 +1,5 @@
 import numpy as np
-import pandas as pd
-import matplotlib 
+import matplotlib
 from matplotlib import pyplot as plt
 
 def feature_vs_n_tau_Q(visualization_df, features):
