@@ -1,11 +1,9 @@
 import numpy as np
 import pandas as pd
-import os
 import matplotlib
 from matplotlib import pyplot as plt
-import sklearn
 import openpyxl
-import xlwt
+from openpyxl.utils.dataframe import dataframe_to_rows
 import sklearn
 from sklearn.datasets import make_classification
 from sklearn.mixture import GaussianMixture
@@ -63,7 +61,12 @@ def potential_rate_paper_set(input_file, sheet_name, output_file, paper_num, set
     # Test that the output is a dataframe
     assert type(c_rate) == type(df_cap_rate), 'The output must be a dataframe'
     # Exporting the converted dataframe to an excel file
-    df_cap_rate.to_excel(output_file, sheet_name = paper_num, index=False, header=True)
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    for row in dataframe_to_rows(df_cap_rate, index=True, header=True):
+        ws.append(row)
+    wb.save(output_file)
+#    df_cap_rate.to_excel(output_file, sheet_name = paper_num, index=False, header=True)
     # Test that the sheet name is a string
     assert type(paper_num) == str, 'sheetname must be a string'
     print('saved succesfully to' + output_file)
@@ -100,7 +103,7 @@ def potential_rate_all(input_file, output_file):
     for i, sheetname in enumerate(sheetnames):
         df = dict_excel[sheetname]
         rate = sheetname.split("C_")[0]
-        for headers, columnval in df.iteritems():
+        for headers, columnval in df.items():
             paper_num, set_num, quan = headers
             # Takes only the capacity data
             if 'capacity' in quan or 'Capacity' in quan:
@@ -114,7 +117,12 @@ def potential_rate_all(input_file, output_file):
     # apply lambda function to each column to drop Nans
     df_cap_rate_all = df_cap_rate.apply(lambda x: pd.Series(x.dropna().values))
     # Export dataframe to Excel
-    df_cap_rate_all.to_excel(output_file, sheet_name = 'CaapacityRate', index=True, header=True)
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    for row in dataframe_to_rows(df_cap_rate_all, index=True, header=True):
+        ws.append(row)
+    wb.save(output_file)
+#    df_cap_rate_all.to_excel(output_file, sheet_name = 'CapacityRate', index=True, header=True)
     return df_cap_rate_all
 
 
