@@ -1,5 +1,5 @@
 [comment]: <> (Build Badge)
-[![Build Status](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery.svg?token=TqLpfP3Qz3sXPyzzMFhK&branch=main)](https://travis-ci.com/3DBatteryDesign/3DLi-ionbattery)
+[![Build Status](https://app.travis-ci.com/BatteryDesign/BatteryRateCap.svg?branch=main)](https://app.travis-ci.com/github/BatteryDesign/BatteryRateCap)
 
 
 # *BatteryRateCap*: A Python Package for Analyzing and Visualizing Battery Rate Capability
