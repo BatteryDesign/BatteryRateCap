@@ -1,6 +1,6 @@
 """
-This module is used to fit experimental capacitye -rate data to Tian et al.'s empirical model,
-plot the fit, and return fitting parameters.
+This module is used to fit experimental capacitye -rate data to
+Tian et al.'s empirical model, plot the fit, and return fitting parameters.
 """
 import os
 import re
@@ -94,6 +94,7 @@ def fitmodel(dframe, output_dir, params0):
     outputpath = os.path.join(output_dir, "fitparameters.csv")
     popt_dframe.to_csv(path_or_buf=outputpath, index=False)
 
+
 def fit(params0, **kwargs):
     '''
     This function fits capacity-rate data to an empirical model and outputs
@@ -120,6 +121,7 @@ def fit(params0, **kwargs):
     popt, pcov = curve_fit(fitfunc, rate, normq, p0=params0)
     return popt, pcov
 
+
 def fitfunc(rate, tau, exponent_n, capacity_q):
     '''
     This is the empirical model developed by Tian et al.(2019):
@@ -128,12 +130,14 @@ def fitfunc(rate, tau, exponent_n, capacity_q):
     normq = capacity_q * (1 -
                           (rate * tau)**exponent_n *
                           (1 - np.exp(- (rate * tau)**(- exponent_n)))
-                         )
+                          )
     return normq
+
 
 def plotfit(dframe, dframe_out):
     '''
-    This function fits and plots capacity-rate data and their fitting results as a panel figure.
+    This function fits and plots capacity-rate data and their fitting
+    results as a panel figure.
     '''
     # plot for predicted capacity (with optimized parameters)
     # compared to known (measured) capacity outputs
@@ -143,12 +147,10 @@ def plotfit(dframe, dframe_out):
         # test data
         # even columns for xdata; odd columns for ydata
         # then sort values by the even(th) columns
-        #indeven = (2 * i)
-        #indodd = indeven + 1
         data = dframe.iloc[:, [2*i, 2*i+1]].sort_values(by=dframe.columns[2*i])
         xdata = data[dframe.columns[2*i]].to_numpy()
         ydata = data[dframe.columns[2*i+1]].to_numpy()
-        #Prediction
+        # Prediction
         # optimized parameters
         tau = dframe_out.loc[i, "tau"]
         exponent_n = dframe_out.loc[i, "n"]
@@ -161,8 +163,8 @@ def plotfit(dframe, dframe_out):
         rate = np.linspace(min(xdata), max(xdata), 100)
         # compare predicted capacity to known capacity in ydata
         axis = plt.subplot(5, 4, (i + 1),
-                           title='\nSE =' + f'{sigma_tau:.2f}'+ ','
-                           + f'{sigma_n:.2f}'+ ','
+                           title='\nSE =' + f'{sigma_tau:.2f}' + ','
+                           + f'{sigma_n:.2f}' + ','
                            + f'{sigma_q:.2f}')  # five rows and four columns
         axis.plot(xdata, ydata,
                   color='b', marker='o',
@@ -170,19 +172,20 @@ def plotfit(dframe, dframe_out):
                   label='data')
         # consider only prediction of dataset with more than four data points
         if not (tau == 0 and exponent_n == 0 and capacity_q == 0):
-            axis.plot(rate, fitfunc(rate, tau, exponent_n, capacity_q), # call model function
+            # call model function
+            axis.plot(rate, fitfunc(rate, tau, exponent_n, capacity_q),
                       color='r',
                       linewidth=2, linestyle='--',
                       label='lsqcurvefit')
-            labels = '#'+str(i)+'\ntau = ' + \
-                     f'{tau:.2f}' +'\nn = ' + \
+            labels = '#' + str(i) + '\ntau = ' + \
+                     f'{tau:.2f}' + '\nn = ' + \
                      f'{exponent_n:.2f}' + '\nQ = ' + \
                      f'{capacity_q:.2f}'
             plt.text(0.1, 0.1, labels, transform=axis.transAxes)
         else:
-            plt.text(0.1, 0.1, 'not enough datapoints', transform=axis.transAxes)
+            plt.text(0.1, 0.1,
+                     'not enough datapoints', transform=axis.transAxes)
         plt.legend(markerscale=0.5, fontsize='xx-small', loc='upper right')
         axis.set_xlabel('discharge rate')
-        axis.set_ylabel('capacity [mAh/g]') # mass normalized capacity
+        axis.set_ylabel('capacity [mAh/g]')  # mass normalized capacity
         plt.tight_layout()
-        

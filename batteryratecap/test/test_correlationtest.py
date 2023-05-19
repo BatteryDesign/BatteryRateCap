@@ -18,6 +18,7 @@ def test_correlation_hypothesis():
     assert np.isclose(correlation, 1), ('Correlation is not right',
                                         'for known case')
 
+
 def test_plot_linear_regression():
     '''
     This function tests the input parameter length and checks
@@ -27,10 +28,13 @@ def test_plot_linear_regression():
     x_values = np.array([0, 1, 2])
     y_values = np.array([0, 2, 4])
     # Test that input parameters have the same length
-    assert len(x_values) == len(y_values), 'Input arrays have different lengths'
-    slope, intercept, _ = plot_linear_regression(x_values, y_values, plot=False)
+    assert len(x_values) == len(y_values), 'Input arrays have \
+    different lengths'
+    slope, intercept, _ = plot_linear_regression(x_values, y_values,
+                                                 plot=False)
     assert np.isclose(slope, 2), 'slope is not right for known case'
     assert np.isclose(intercept, 0), 'intercept is not right for known case'
+
 
 def test_linear_outliers():
     '''
@@ -42,9 +46,12 @@ def test_linear_outliers():
     y_values = np.array([0, 2, 4, 6, 20])
     num = 1
     # Assert input parameters have the same length
-    assert len(x_values) == len(y_values), 'Input arrays have different lengths'
+    assert len(x_values) == len(y_values), 'Input arrays have \
+    different lengths'
     # Assert input num is an integer
     assert isinstance(num, int), 'Number of outliers must be an integer'
     x_new, y_new = linear_outliers(x_values, y_values, num)
-    assert set(x_new) == set(x_values[0:4]), 'outlier is not right for known case'
-    assert set(y_new) == set(y_values[0:4]), 'outlier is not right for known case'
+    assert set(x_new) == set(x_values[0:4]), 'outlier is not right for \
+    known case'
+    assert set(y_new) == set(y_values[0:4]), 'outlier is not right for \
+    known case'

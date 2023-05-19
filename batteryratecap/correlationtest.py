@@ -7,6 +7,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import scipy.stats
 
+
 def correlation_hypothesis(x_array, y_array, alpha, test='pearson'):
     '''
     This function prints out the correlation and p values
@@ -64,7 +65,9 @@ def plot_linear_regression(x_array, y_array, plot=True):
     line_label = f'Regression line: y={intercept:.2f}+{slope:.2f}x'
     if plot is True:
         plt.figure(figsize=(12, 8))
-        plt.scatter(x_array, y_array, marker='o', color='green', label='input data')
+        plt.scatter(x_array, y_array,
+                    marker='o', color='green',
+                    label='input data')
         plt.plot(x_array, intercept+slope*x_array, label=line_label)
         plt.legend()
         plt.tight_layout()
@@ -105,7 +108,8 @@ def linear_outliers(x_array, y_array, num):
                                                   y_remove,
                                                   plot=False)
             err_list.append(abs(stderr))
-        # Sort error index from min to max and get the index that returns the min stderr
+        # Sort error index from min to max and
+        # get the index that returns the min stderr
         max_index = np.argsort(err_list)[0]
         print('Detect outlier at position', 'x=',
               x_no_outliers[max_index], 'y=', y_no_outliers[max_index])

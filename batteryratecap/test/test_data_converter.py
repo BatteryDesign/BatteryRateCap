@@ -13,14 +13,19 @@ from batteryratecap.data_converter import potential_rate
 from batteryratecap.data_converter import excel_merge
 from batteryratecap.data_converter import capacity_cycle
 
+
 def test_potential_rate():
+    '''
+
+    '''
+
+
+def test_excel_merge():
     '''
     
     '''
-    return
-
-def test_excel_merge():
-    return
 
 def test_capacity_cycle():
-    return
+    '''
+    
+    '''

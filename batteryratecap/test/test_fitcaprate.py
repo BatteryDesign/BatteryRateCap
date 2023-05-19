@@ -38,6 +38,7 @@ def test_fitmodel():
             the paper and set of data, the optimized parameters \
             and their standard deviations")
 
+
 def test_fit():
     """
     Test case for curve fit module to lithium ion battery
@@ -58,6 +59,7 @@ def test_fit():
     except AssertionError:
         print(f'I should have only three parameters, \
               not {lenparam}')
+
 
 def test_fitfunc():
     '''

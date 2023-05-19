@@ -1,6 +1,6 @@
 """
-This module is used to convert battery cycling data and battery charge/discharge data
-into capacity-rate data.
+This module is used to convert battery cycling data
+and battery charge/discharge data into capacity-rate data.
 """
 import numpy as np
 import pandas as pd
@@ -10,18 +10,19 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 from sklearn.mixture import GaussianMixture
 
 
-def potential_rate_paper_set(input_file, sheet_name, output_file, paper_num, set_num):
+def potential_rate_paper_set(input_file, sheet_name,
+                             output_file, paper_num, set_num):
     """
-    This function converts potential vs. capacity data to capacity vs c-rate data
-    The Highest x-value (capacity [mAh]) from the charge/discharge graph.
-    The input excel file has the format that each excel file has
-    many sheets and each sheet, separated by charge/discharge C-rate,
-    contains many papers. Each paper can have more than 1 set of capacity
-    versus voltage data, each occupying 1 column (i.e. each set takes up two columns).
-    The first row of a sheet specifies the paper code number, e.g. 'paper # 1', and
-    the second row of a sheet spcifies the battery's set number, e.g. 'set # 1', and
-    the third row of a sheet contains the quantity name and units, e.g. 'Capacity (mAh/g)'
-    and 'Voltage (V)'.
+    This function converts potential vs. capacity data to capacity vs c-rate
+    data. The Highest x-value (capacity [mAh]) from the charge/discharge graph.
+    The input excel file has the format that each excel file has many sheets
+    and each sheet, separated by charge/discharge C-rate, contains many papers.
+    Each paper can have more than 1 set of capacity versus voltage data, each
+    occupying 1 column (i.e. each set takes up two columns). The first row of
+    a sheet specifies the paper code number, e.g. 'paper # 1', and the second
+    row of a sheet spcifies the battery's set number, e.g. 'set # 1', and the
+    third row of a sheet contains the quantity name and units, e.g. 'Capacity
+    (mAh/g)' and 'Voltage (V)'.
     PARAMETERS
     ----------
     1) Excel file (file path) - string
@@ -37,7 +38,7 @@ def potential_rate_paper_set(input_file, sheet_name, output_file, paper_num, set
     # Test that the input 'set_num' is an integer
     assert isinstance(set_num, int) is True, 'set_num must be an integer'
     # Dataframing the interested potential vs capacity excel sheet
-    df_input = pd.read_excel(input_file, sheet_name, header=[0, 1, 2]) #
+    df_input = pd.read_excel(input_file, sheet_name, header=[0, 1, 2])
     # Merging multiple spreadsheets
     df_sheets = []
     for i in sheet_name:
@@ -59,31 +60,35 @@ def potential_rate_paper_set(input_file, sheet_name, output_file, paper_num, set
         caplist.append(pd.DataFrame({"Capacity (mAh/g)": set_i_max}))
     df_cap_rate = pd.concat(caplist, axis=1)
     # Test that the output is a dataframe
-    assert isinstance(c_rate, df_cap_rate) is True, 'The output must be a dataframe'
+    assert isinstance(c_rate,
+                      df_cap_rate) is True, 'The output must be a dataframe'
     # Exporting the converted dataframe to an excel file
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
     for row in dataframe_to_rows(df_cap_rate, index=True, header=True):
         worksheet.append(row)
     workbook.save(output_file)
-#    df_cap_rate.to_excel(output_file, sheet_name = paper_num, index=False, header=True)
+#     df_cap_rate.to_excel(output_file,sheet_name=paper_num,
+#                          index=False, header=True)
     # Test that the sheet name is a string
     assert isinstance(paper_num, str) is True, 'sheetname must be a string'
     print('saved succesfully to' + output_file)
     return df_cap_rate
 
+
 def potential_rate_all(input_file, output_file):
     """
-    This function converts and dataframes all voltage potential data and separates them
-    by paper and set numbers such that the users can see what options they have.
-    The input excel file has the format that each excel file has
-    many sheets and each sheet, separated by charge/discharge C-rate,
-    contains many papers. Each paper can have more than 1 set of capacity
-    versus voltage data, each occupying 1 column (i.e. each set takes up two columns).
-    The first row of a sheet specifies the paper code number, e.g. 'paper # 1', and
-    the second row of a sheet spcifies the battery's set number, e.g. 'set # 1', and
-    the third row of a sheet contains the quantity name and units, e.g. 'Capacity (mAh/g)'
-    and 'Voltage (V)'.
+    This function converts and dataframes all voltage potential data and
+    separates them by paper and set numbers such that the users can see
+    what options they have. The input excel file has the format that each
+    excel file has many sheets and each sheet, separated by charge/discharge
+    C-rate, contains many papers. Each paper can have more than 1 set of
+    capacity versus voltage data, each occupying 1 column (i.e. each set
+    takes up two columns). The first row of a sheet specifies the paper code
+    number, e.g. 'paper # 1', and the second row of a sheet spcifies the
+    battery's set number, e.g. 'set # 1', and the third row of a sheet
+    contains the quantity name and units, e.g. 'Capacity (mAh/g)' and
+    'Voltage (V)'.
     PARAMETERS
     ----------
     1) Excel file (file path) - string
@@ -95,7 +100,7 @@ def potential_rate_all(input_file, output_file):
     # Read all sheets in the input file into a dictionary
     dict_excel = pd.read_excel(input_file, sheet_name=None, header=[0, 1, 2])
     sheetnames = list(dict_excel.keys())
-    #dict_excel[sheetnames[0]]
+#     dict_excel[sheetnames[0]]
     df_cap_rate = pd.DataFrame()
     for _, sheetname in enumerate(sheetnames):
         df_input = dict_excel[sheetname]
@@ -105,10 +110,12 @@ def potential_rate_all(input_file, output_file):
             # Takes only the capacity data
             if 'capacity' in quan or 'Capacity' in quan:
                 max_cap = np.nanmax(columnval.values)
-                # Must create the dataframe first before adding multiple headers
+                # Must create the dataframe first
+                # before adding multiple headers
                 newdf = pd.DataFrame([[rate, max_cap]])
                 # Add headers
-                newdf_header = [[paper_num, paper_num], [set_num, set_num], ['C-rate', quan]]
+                newdf_header = [[paper_num, paper_num],
+                                [set_num, set_num], ['C-rate', quan]]
                 newdf.columns = newdf_header
                 df_cap_rate = pd.concat([df_cap_rate, newdf])
     # apply lambda function to each column to drop Nans
@@ -119,8 +126,10 @@ def potential_rate_all(input_file, output_file):
     for row in dataframe_to_rows(df_cap_rate_all, index=True, header=True):
         worksheet.append(row)
     workbook.save(output_file)
-#    df_cap_rate_all.to_excel(output_file, sheet_name = 'CapacityRate', index=True, header=True)
+#     df_cap_rate_all.to_excel(output_file,sheet_name='CapacityRate',
+#                              index=True, header=True)
     return df_cap_rate_all
+
 
 def excel_merge(dataframe, xls_file, sheetname):
     """
@@ -135,16 +144,20 @@ def excel_merge(dataframe, xls_file, sheetname):
     A new sheet in the excel file
     """
     # Exporting the converted dataframe to an excel file
-    dataframe.to_excel(xls_file, sheet_name=sheetname, index=False, header=True)
+    dataframe.to_excel(xls_file, sheet_name=sheetname,
+                       index=False, header=True)
     # Test that the sheet name is a string
     assert isinstance(sheetname, str) is True, 'sheetname must be a string'
     print('saved succesfully to' + xls_file)
 
-def capacity_cycle(capacity_cycle_array, num_rate, current_list, current_unit, capacity_unit):
+
+def capacity_cycle(capacity_cycle_array, num_rate,
+                   current_list, current_unit, capacity_unit):
     '''
     This function converts capacity-cycle data to capacity-rate plots.
-    For different selections of paper/set, the user will have to adjust 'n_components'
-    until the groups are properly grouped, as seen in the plot below
+    For different selections of paper/set, the user will have to adjust
+    'n_components' until the groups are properly grouped, as seen in the
+    plot below.
     Inputs
     - capacity_cycle_array: nx2 capacity vs cycle # array
     - n: number of C-rates, or 'stairs'
@@ -154,27 +167,31 @@ def capacity_cycle(capacity_cycle_array, num_rate, current_list, current_unit, c
     '''
     model = GaussianMixture(n_components=num_rate)
     model.fit(capacity_cycle_array)
-    # Use the model to make predictions about which group each datapoint belongs to
-    # predictions stored as an np array with indexes corresponding to points,
+    # Use the model to make predictions about which group each datapoint
+    # belongs to.
+    # Predictions stored as an np array with indexes corresponding to points,
     # and values to their assigned class
     prediction = model.predict(capacity_cycle_array)
-    ## np.array of the unique classes
+    # np.array of the unique classes
     clusters = np.unique(prediction)
-    ## Plot the points now that they are grouped
+    # Plot the points now that they are grouped
     for cluster in clusters:
         row_ix = np.where(prediction == cluster)
-        plt.scatter(capacity_cycle_array[row_ix, 0], capacity_cycle_array[row_ix, 1])
+        plt.scatter(capacity_cycle_array[row_ix, 0],
+                    capacity_cycle_array[row_ix, 1])
     plt.ylabel("Capacity "+capacity_unit, fontsize=16)
     plt.xlabel("Cycle #", fontsize=16)
-    ## Return the means of each 'stair' and sort
+    # Return the means of each 'stair' and sort
     means = model.means_
     means = means[np.argsort(means[:, 0])]
     means_of_groups = means[:, 1]
     means_of_groups = pd.DataFrame(means_of_groups)
-    means_of_groups = means_of_groups.rename(columns={0: "Capacity"+capacity_unit})
-    ## Get list of current rates or current densities
+    means_of_groups = means_of_groups.rename(
+        columns={0: "Capacity"+capacity_unit})
+    # Get list of current rates or current densities
     current_list = pd.DataFrame(np.array(current_list))
     current_header = "Current " + current_unit
     current_list = current_list.rename(columns={0: current_header})
-    capacity_vs_current_density_df = pd.concat([current_list, means_of_groups], axis=1)
+    capacity_vs_current_density_df = pd.concat([current_list,
+                                                means_of_groups], axis=1)
     return capacity_vs_current_density_df
