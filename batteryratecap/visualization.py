@@ -70,3 +70,4 @@ def feature_vs_n_tau_q(visualization_df, features):
             axis[2].set_xlabel(feature)
             axis[2].set_ylabel('Q')
     plt.tight_layout()
+    return fig
