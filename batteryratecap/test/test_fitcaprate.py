@@ -1,11 +1,12 @@
+"""
+This is the unit test for gitcaprate.py.
+"""
 import os
-
 import pandas as pd
-
 import batteryratecap
 from batteryratecap import fitcaprate
 
-data_path = os.path.join(batteryratecap.__path__[0], 'data')
+DATA_PATH = os.path.join(batteryratecap.__path__[0], 'doc/Data')
 
 
 def test_fitmodel():
@@ -16,30 +17,26 @@ def test_fitmodel():
     data dir, then assert output size of 'fitparameters.csv'
     '''
     # Write parameters to csv file with fit function
-    fitcaprate.fitmodel()
+    df_input = pd.read_csv('../../doc/Data/visualization_df.csv')
     # test 1; check that file exists
     try:
-        filepath = os.path.join(data_path, "fitparameters.csv")
-        filepathexists = os.path.exists(filepath)
-        assert(filepathexists)
+        filepath = os.path.join(DATA_PATH, "fitparameters.csv")
+        fitcaprate.fitmodel(df_input, filepath, [0.5, 1, 200])
+        assert os.path.exists(filepath)
     except AssertionError:
         print("I couldn't find filepath to parameters csv file")
-    return
     # test 2; check output size of fit parameter csv file
     # read output of the optimized parameters
     try:
-        filepath_out = os.path.join('../batteryratecap/data',
-                                    'fitparameters.csv')
+        filepath_out = os.path.join(DATA_PATH, 'fitparameters.csv')
         dframe_out = pd.read_csv(filepath_out)
         numcolumns = 8
         shapeout = (dframe_out.shape[1] == numcolumns)
-        assert(shapeout)
+        assert shapeout
     except AssertionError:
         print(f"There should be {numcolumns} columns for \
             the paper and set of data, the optimized parameters \
             and their standard deviations")
-    return
-
 
 def test_fit():
     """
@@ -48,21 +45,19 @@ def test_fit():
     to the optimized, desired, paramters: the characteristic time tau,
     the n fractor, and specific capacity Q
     """
-    filepath = os.path.join(data_path, "capacityratepaper1set1.csv")
+    filepath = os.path.join(DATA_PATH, "capacityratepaper1set1.csv")
     # parameters
     tau = 0.5
-    n = 1
-    specificQ = 100
-    params0 = [tau, n, specificQ]  # intial guess parameter
+    exponent_n = 1
+    capacity_q = 100
+    params0 = [tau, exponent_n, capacity_q]  # intial guess parameter
     popt, _ = fitcaprate.fit(params0, filename=filepath)
     try:
         lenparam = len(popt)
-        assert(lenparam == 3)
+        assert lenparam == 3
     except AssertionError:
         print(f'I should have only three parameters, \
               not {lenparam}')
-    return
-
 
 def test_fitfunc():
     '''
@@ -72,30 +67,29 @@ def test_fitfunc():
     the maximum value at initail discharge rate (at zero) is less
     than or equal to the specific capacity
     '''
-    filepath = os.path.join(data_path, "capacityratepaper1set1.csv")
+    filepath = os.path.join(DATA_PATH, "capacityratepaper1set1.csv")
     tau = 0.5
-    n = 1
-    specificQ = 100
+    exponent_n = 1
+    capacity_q = 100
     # import data
     dframe = pd.read_csv(filepath)
-    Rdischarge = dframe.iloc[:, 0].to_numpy()
+    rate = dframe.iloc[:, 0].to_numpy()
     # estimate normalize mass Q from model
-    normQ = fitcaprate.fitfunc(Rdischarge, tau, n, specificQ)
+    normq = fitcaprate.fitfunc(rate, tau, exponent_n, capacity_q)
     # first check the shape of normQ output
     try:
-        shape_normQ = normQ.shape
-        shape_Rdischarge = Rdischarge.shape
-        assert(shape_normQ == shape_Rdischarge)
+        shape_normq = normq.shape
+        shape_rate = rate.shape
+        assert shape_normq == shape_rate
     except AssertionError:
-        print(f'the size of input array, {shape_Rdischarge}, and\
-              output array, {shape_normQ}, should be equal')
+        print(f'the size of input array, {shape_rate}, and\
+              output array, {shape_normq}, should be equal')
         # second, check the initial output value
         try:
-            normQ0 = normQ[0]
-            normQ0lessorequalspecificQ = (normQ0 <= specificQ)
-            assert(normQ0lessorequalspecificQ)
+            normq0 = normq[0]
+            normq_lessorequal_capacity_q = (normq0 <= capacity_q)
+            assert normq_lessorequal_capacity_q
         except AssertionError:
             print('the normalized mass capacity normQ should be \
                 less than or equal to the specific capacity Q \
                 at any given discharge rate')
-    return
