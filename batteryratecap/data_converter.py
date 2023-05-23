@@ -2,6 +2,7 @@
 This module is used to convert battery cycling data
 and battery charge/discharge data into capacity-rate data.
 """
+import os
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -35,14 +36,23 @@ def potential_rate_paper_set(input_file, sheet_name,
     """
     # Determining which set # and the number of set lists from the excel file
     set_list = ['set #' + str(i) for i in range(1, set_num + 1)]
-    # Test that the input 'set_num' is an integer
+    # Assert that the input 'set_num' is an integer
     assert isinstance(set_num, int) is True, 'set_num must be an integer'
+    # Assert that the input 'paper_num' is a string and has the correct format
+    assert isinstance(paper_num, str) is True, 'paper_num must be a string'
+    assert 'Paper # ' in paper_num, 'paper_num not in correct format, e.g. Paper # 1'
+    # Assert input sheet names are in a list
+    if isinstance(sheet_name, list) is not True:
+        raise TypeError('sheet_name must be a list of strings')
+    # Assert sheetname contains 'C_'
+    for _, name in enumerate(sheet_name):
+        assert 'C_' in name, 'input sheet names are not in the correct format'
     # Dataframing the interested potential vs capacity excel sheet
     df_input = pd.read_excel(input_file, sheet_name, header=[0, 1, 2])
     # Merging multiple spreadsheets
     df_sheets = []
-    for i in sheet_name:
-        df_sheets.append(df_input[i])
+    for _, name in enumerate(sheet_name):
+        df_sheets.append(df_input[name])
     df_merged = pd.concat(df_sheets, axis=1)
     # Get C-rate numerical values
     rates = []
@@ -55,13 +65,17 @@ def potential_rate_paper_set(input_file, sheet_name,
     caplist = []
     for i in set_list:
         set_i = (df_merged[paper_num, i])
-        set_i_max = set_i["Capacity (mAh/g)"].max(axis=0).array
+        set_i_max = set_i["Capacity (mAh/g)"].max(axis=0)
+        # if there is only one capcacity result
+        if isinstance(set_i_max, float):
+            set_i_max = pd.array([set_i_max])
+        else:
+            set_i_max = set_i_max.array
         caplist.append(c_rate)
         caplist.append(pd.DataFrame({"Capacity (mAh/g)": set_i_max}))
     df_cap_rate = pd.concat(caplist, axis=1)
     # Test that the output is a dataframe
-    assert isinstance(c_rate,
-                      df_cap_rate) is True, 'The output must be a dataframe'
+    assert isinstance(df_cap_rate, pd.DataFrame) is True, 'The output must be a dataframe'
     # Exporting the converted dataframe to an excel file
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
@@ -107,6 +121,8 @@ def potential_rate_all(input_file, output_file):
         rate = sheetname.split("C_")[0]
         for headers, columnval in df_input.items():
             paper_num, set_num, quan = headers
+            assert 'Paper' in paper_num, 'Wrong paper number header'
+            assert 'set' in set_num, 'Wrong set number format'
             # Takes only the capacity data
             if 'capacity' in quan or 'Capacity' in quan:
                 max_cap = np.nanmax(columnval.values)
@@ -144,6 +160,8 @@ def excel_merge(dataframe, xls_file, sheetname):
     A new sheet in the excel file
     """
     # Exporting the converted dataframe to an excel file
+    filename, ext = os.path.splitext(xls_file)
+    assert ext is '.xls' or ext is '.xlsx', 'Wrong output file type'
     dataframe.to_excel(xls_file, sheet_name=sheetname,
                        index=False, header=True)
     # Test that the sheet name is a string
@@ -165,6 +183,8 @@ def capacity_cycle(capacity_cycle_array, num_rate,
     - current_unit: a text string of current unit
     - capacity_unit: a text string od capacity unit
     '''
+    assert capacity_cycle_array.shape[1] == 2, 'Input array wrong shape'
+    assert len(current_list) == num_rate, 'Input number of current wrong'
     model = GaussianMixture(n_components=num_rate)
     model.fit(capacity_cycle_array)
     # Use the model to make predictions about which group each datapoint
