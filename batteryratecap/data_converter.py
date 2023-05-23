@@ -40,7 +40,7 @@ def potential_rate_paper_set(input_file, sheet_name,
     assert isinstance(set_num, int) is True, 'set_num must be an integer'
     # Assert that the input 'paper_num' is a string and has the correct format
     assert isinstance(paper_num, str) is True, 'paper_num must be a string'
-    assert 'Paper # ' in paper_num, 'paper_num not in correct format, e.g. Paper # 1'
+    assert 'Paper # ' in paper_num, 'paper_num not in correct format'
     # Assert input sheet names are in a list
     if isinstance(sheet_name, list) is not True:
         raise TypeError('sheet_name must be a list of strings')
@@ -75,7 +75,8 @@ def potential_rate_paper_set(input_file, sheet_name,
         caplist.append(pd.DataFrame({"Capacity (mAh/g)": set_i_max}))
     df_cap_rate = pd.concat(caplist, axis=1)
     # Test that the output is a dataframe
-    assert isinstance(df_cap_rate, pd.DataFrame) is True, 'The output must be a dataframe'
+    assert isinstance(df_cap_rate, pd.DataFrame) is True, '\
+    The output must be a dataframe'
     # Exporting the converted dataframe to an excel file
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
@@ -161,7 +162,7 @@ def excel_merge(dataframe, xls_file, sheetname):
     """
     # Exporting the converted dataframe to an excel file
     filename, ext = os.path.splitext(xls_file)
-    assert ext is '.xls' or ext is '.xlsx', 'Wrong output file type'
+    assert ext == '.xls' or ext == '.xlsx', 'Wrong output file type'
     dataframe.to_excel(xls_file, sheet_name=sheetname,
                        index=False, header=True)
     # Test that the sheet name is a string
