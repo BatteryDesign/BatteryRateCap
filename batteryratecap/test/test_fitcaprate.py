@@ -1,42 +1,43 @@
 """
-This is the unit test for gitcaprate.py.
+This is the unit test for fitcaprate.py.
 """
 import os
 import pandas as pd
 import batteryratecap
-from batteryratecap import fitcaprate
+from batteryratecap.fitcaprate import fitmodel
+from batteryratecap.fitcaprate import fit
+from batteryratecap.fitcaprate import fitfunc
 
-DATA_PATH = os.path.join(batteryratecap.__path__[0], 'doc/Data')
+DATA_PATH = '../../doc/Data'
 
 
 def test_fitmodel():
     '''
     Test case for curve fit module to all dataset of
     lithium ion battery prescribed in data dir
-    first check that output exists as 'fitparameters.csv' in
-    data dir, then assert output size of 'fitparameters.csv'
+    first checks that input dataframe has the correct number
+    of columns, then asserts output dataframe size
     '''
     # Write parameters to csv file with fit function
-    df_input = pd.read_csv('../../doc/Data/visualization_df.csv')
-    # test 1; check that file exists
+    df_input = pd.DataFrame({"Rate":[1, 2, 3, 4, 5]})
+    out_file = os.path.join(DATA_PATH, "test_fitparameters.xlsx")
+    # Test input dataframe has the correct number of columns
     try:
-        filepath = os.path.join(DATA_PATH, "fitparameters.csv")
-        fitcaprate.fitmodel(df_input, filepath, [0.5, 1, 200])
-        assert os.path.exists(filepath)
-    except AssertionError:
-        print("I couldn't find filepath to parameters csv file")
-    # test 2; check output size of fit parameter csv file
+        fitmodel(df_input, out_file, [0.5, 1, 200])
+    except Exception as err:
+        assert isinstance(err, AssertionError), "Function outputs \
+        the incorrrect error type when input dataframe has the \
+        wrong number of columns"
+    # Test output size of fit parameter csv file
     # read output of the optimized parameters
-    try:
-        filepath_out = os.path.join(DATA_PATH, 'fitparameters.csv')
-        dframe_out = pd.read_csv(filepath_out)
-        numcolumns = 8
-        shapeout = (dframe_out.shape[1] == numcolumns)
-        assert shapeout
-    except AssertionError:
-        print(f"There should be {numcolumns} columns for \
-            the paper and set of data, the optimized parameters \
-            and their standard deviations")
+    df_input = pd.read_excel(os.path.join(DATA_PATH, "performancelog.xls"),
+                             sheet_name='CapacityRate',
+                             header=[0, 1, 2])
+    fitmodel(df_input, out_file, [0.5, 1, 200])
+    dframe_out = pd.read_excel(out_file)
+    assert dframe_out.shape[1] == 8, "There should be \
+    8 columns for the paper and set of data, \
+    the optimized parameters and their standard deviations"
 
 
 def test_fit():
@@ -46,13 +47,13 @@ def test_fit():
     to the optimized, desired, paramters: the characteristic time tau,
     the n fractor, and specific capacity Q
     """
-    filepath = os.path.join(DATA_PATH, "capacityratepaper1set1.csv")
-    # parameters
+    filepath = os.path.join(DATA_PATH, "test_kwarg_fit.xlsx")
+    # intial guess parameter
     tau = 0.5
     exponent_n = 1
     capacity_q = 100
-    params0 = [tau, exponent_n, capacity_q]  # intial guess parameter
-    popt, _ = fitcaprate.fit(params0, filename=filepath)
+    params0 = [tau, exponent_n, capacity_q]  
+    popt, _ = fit(params0, filename=filepath)
     try:
         lenparam = len(popt)
         assert lenparam == 3
@@ -69,15 +70,15 @@ def test_fitfunc():
     the maximum value at initail discharge rate (at zero) is less
     than or equal to the specific capacity
     '''
-    filepath = os.path.join(DATA_PATH, "capacityratepaper1set1.csv")
+    filepath = os.path.join(DATA_PATH, "test_kwarg_fit.xlsx")
     tau = 0.5
     exponent_n = 1
     capacity_q = 100
     # import data
-    dframe = pd.read_csv(filepath)
-    rate = dframe.iloc[:, 0].to_numpy()
+    dframe = pd.read_excel(filepath, header=[0, 1, 2])
+    rate = dframe.iloc[:, 0].values
     # estimate normalize mass Q from model
-    normq = fitcaprate.fitfunc(rate, tau, exponent_n, capacity_q)
+    normq = fitfunc(rate, tau, exponent_n, capacity_q)
     # first check the shape of normQ output
     try:
         shape_normq = normq.shape

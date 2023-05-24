@@ -31,6 +31,8 @@ def fitmodel(dframe, output_xlsx, params0):
     sigma_ns = []
     capacity_qs = []
     sigma_qs = []
+    assert (len(dframe.columns) / 2) % 1 == 0, " \
+    Input dataframe does not have the correct number of columns"
     numdataset = range(int(len(dframe.columns) / 2))
     # fit dataset
     for i in numdataset:
@@ -98,7 +100,7 @@ def fitmodel(dframe, output_xlsx, params0):
     # Export dataframe of optimized parameter to excel file
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
-    for row in dataframe_to_rows(popt_dframe, index=True, header=True):
+    for row in dataframe_to_rows(popt_dframe, index=False, header=True):
         worksheet.append(row)
     workbook.save(output_xlsx)
 
@@ -122,9 +124,9 @@ def fit(params0, **kwargs):
         normq = kwargs['ydata']
     elif 'filename' in kwargs:
         filepath = kwargs['filename']
-        dframe = pd.read_excel(filepath)
-        rate = dframe.iloc[:, 0].to_numpy()
-        normq = dframe.iloc[:, 1].to_numpy()
+        dframe = pd.read_excel(filepath, header=[0, 1, 2])
+        rate = dframe.iloc[:, 0].values
+        normq = dframe.iloc[:, 1].values
     # Fit procedure
     popt, pcov = curve_fit(fitfunc, rate, normq, p0=params0)
     return popt, pcov
