@@ -163,10 +163,10 @@ def excel_merge(dataframe, xls_file, sheetname):
     # Exporting the converted dataframe to an excel file
     filename, ext = os.path.splitext(xls_file)
     assert ext == '.xls' or ext == '.xlsx', 'Wrong output file type'
-    dataframe.to_excel(xls_file, sheet_name=sheetname,
-                       index=False, header=True)
     # Test that the sheet name is a string
     assert isinstance(sheetname, str) is True, 'sheetname must be a string'
+    dataframe.to_excel(xls_file, sheet_name=sheetname,
+                       index=False, header=True)
     print('saved succesfully to' + xls_file)
 
 
