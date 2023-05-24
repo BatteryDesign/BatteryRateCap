@@ -9,15 +9,17 @@ import pandas as pd
 from scipy.optimize import curve_fit
 import matplotlib
 from matplotlib import pyplot as plt
+import openpyxl
+from openpyxl.utils.dataframe import dataframe_to_rows
 
 
-def fitmodel(dframe, output_dir, params0):
+def fitmodel(dframe, output_xlsx, params0):
     '''
     This function fits capacity-rate dataframe and outputs
-    the optimized fit parameters and covaraiances in a csv file.
+    the optimized fit parameters and covaraiances in a excel file.
     Inputs
-    - capacity-rate dataframe
-    - output directory for the csv file that contains fitting parameters
+    - dframe: capacity-rate dataframe
+    - output_xlsx: string, output xlsx file path and name with extension
     - params0: a list of initial points for searching [tau, n, Qmax]
     The data fitting is done using the fit() function below in this file.
     '''
@@ -90,9 +92,15 @@ def fitmodel(dframe, output_dir, params0):
         row_series = pd.Series(row, index=popt_dframe.columns)
         popt_dframe = popt_dframe.append(row_series, ignore_index=True)
 
-    # Write dataframe of optimized parameters to csv file
-    outputpath = os.path.join(output_dir, "fitparameters.csv")
-    popt_dframe.to_csv(path_or_buf=outputpath, index=False)
+#     # Write dataframe of optimized parameters to csv file
+#     outputpath = os.path.join(output_dir, "fitparameters.csv")
+#     popt_dframe.to_csv(path_or_buf=outputpath, index=False)    
+    # Export dataframe of optimized parameter to excel file
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    for row in dataframe_to_rows(popt_dframe, index=True, header=True):
+        worksheet.append(row)
+    workbook.save(output_xlsx)
 
 
 def fit(params0, **kwargs):
@@ -104,7 +112,7 @@ def fit(params0, **kwargs):
     xdata: 1D numpy array, default as 'rate'
     ydata: 1D numpy array, default as normq
     filename: string, filepath
-        (csv format) first column is xdata, second, ydata
+        (excel format) first column is xdata, second, ydata
     Output Argument
     Return the optimized parameters tau, n, Q
     '''
@@ -114,7 +122,7 @@ def fit(params0, **kwargs):
         normq = kwargs['ydata']
     elif 'filename' in kwargs:
         filepath = kwargs['filename']
-        dframe = pd.read_csv(filepath)
+        dframe = pd.read_excel(filepath)
         rate = dframe.iloc[:, 0].to_numpy()
         normq = dframe.iloc[:, 1].to_numpy()
     # Fit procedure
