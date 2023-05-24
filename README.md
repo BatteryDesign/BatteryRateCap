@@ -69,7 +69,7 @@ pip install batteryratecap
 ```
 
 ## Software Dependency
-- Python 3
+- Python >=3.6
 - See environment.yml for all Python package dependencies
 
 
