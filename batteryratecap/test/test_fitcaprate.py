@@ -3,7 +3,6 @@ This is the unit test for fitcaprate.py.
 """
 import os
 import pandas as pd
-import batteryratecap
 from batteryratecap.fitcaprate import fitmodel
 from batteryratecap.fitcaprate import fit
 from batteryratecap.fitcaprate import fitfunc
@@ -19,7 +18,7 @@ def test_fitmodel():
     of columns, then asserts output dataframe size
     '''
     # Write parameters to csv file with fit function
-    df_input = pd.DataFrame({"Rate":[1, 2, 3, 4, 5]})
+    df_input = pd.DataFrame({"Rate": [1, 2, 3, 4, 5]})
     out_file = os.path.join(DATA_PATH, "test_fitparameters.xlsx")
     # Test input dataframe has the correct number of columns
     try:
@@ -52,7 +51,7 @@ def test_fit():
     tau = 0.5
     exponent_n = 1
     capacity_q = 100
-    params0 = [tau, exponent_n, capacity_q]  
+    params0 = [tau, exponent_n, capacity_q]
     popt, _ = fit(params0, filename=filepath)
     try:
         lenparam = len(popt)

@@ -2,7 +2,6 @@
 This module is used to fit experimental capacitye -rate data to
 Tian et al.'s empirical model, plot the fit, and return fitting parameters.
 """
-import os
 import re
 import numpy as np
 import pandas as pd
@@ -93,10 +92,9 @@ def fitmodel(dframe, output_xlsx, params0):
                ]
         row_series = pd.Series(row, index=popt_dframe.columns)
         popt_dframe = popt_dframe.append(row_series, ignore_index=True)
-
 #     # Write dataframe of optimized parameters to csv file
 #     outputpath = os.path.join(output_dir, "fitparameters.csv")
-#     popt_dframe.to_csv(path_or_buf=outputpath, index=False)    
+#     popt_dframe.to_csv(path_or_buf=outputpath, index=False)
     # Export dataframe of optimized parameter to excel file
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
