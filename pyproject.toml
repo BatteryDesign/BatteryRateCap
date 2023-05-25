@@ -27,5 +27,5 @@ py-modules = ["batteryratecap"]
 [project.urls]
 "Homepage" = "https://github.com/BatteryDesign/BatteryRateCap"
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
