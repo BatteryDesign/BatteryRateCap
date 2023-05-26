@@ -48,15 +48,15 @@ charateristics. <br/>
 
 
 ## Use Cases
-1. Use case 1: Data Fitting
+1. Use case 1: Data Conversion
+   - Our data conversion module can be used to convert charge/discharge data (voltage versus capacity) and capacity-cycle  into rate-capacity data.
+   - Target users: Battery researchers
+2. Use case 2: Data Fitting
    - Our curve-fitting module is for any researchers who would like to fit their capacity-rate data and attain fitting parameters including charatersitic time, n value, and capacity Q as described in the *Research Objectives* section. 
-   - Target users: Battery researchers who have rate-capacity data
-2. Use case 2: Data visulization
+   - Target users: Battery researchers
+3. Use case 3: Data visulization
    - Our data visualization module is for any researchers that wish to visualize their batteries data with plots of fitting parameters versus battery geometry/material parameters. 
-   - Target users: Battery researcher who have multiple sets of battery data that include charateristic time, n value, capacity, and other geometry/material parameters. 
-3. Use case 3: Data conversion
-   - Our data conversion module can be used to convert voltage-discharge curves and capacity-cycle plots into rate-capacity data.
-   - Target users: Battery researchers who have voltage-discharge/capacty-cycle data
+   - Target users: Battery researcher who have multiple sets of battery data that include charateristic time, n value, capacity, and other geometry/material parameters.
 4. Use case 4: Hypothesis testing
    - Our hypothesis testing module can be used to determine whether a statistically-signicificant linear relationship exisits between 3D battery desgin parameters and performance.
    - Target users: Battery researchers who have battery desgin parameter and performance data.
