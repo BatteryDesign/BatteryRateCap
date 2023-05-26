@@ -196,12 +196,14 @@ def capacity_cycle(capacity_cycle_array, num_rate,
     # np.array of the unique classes
     clusters = np.unique(prediction)
     # Plot the points now that they are grouped
+    plt.figure(figsize=(10,8))
     for cluster in clusters:
         row_ix = np.where(prediction == cluster)
         plt.scatter(capacity_cycle_array[row_ix, 0],
-                    capacity_cycle_array[row_ix, 1])
-    plt.ylabel("Capacity "+capacity_unit, fontsize=16)
-    plt.xlabel("Cycle #", fontsize=16)
+                    capacity_cycle_array[row_ix, 1],
+                    s=300)
+    plt.ylabel("Capacity "+capacity_unit, fontsize=22)
+    plt.xlabel("Cycle #", fontsize=22)
     # Return the means of each 'stair' and sort
     means = model.means_
     means = means[np.argsort(means[:, 0])]
