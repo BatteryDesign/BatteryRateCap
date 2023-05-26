@@ -7,7 +7,8 @@ from batteryratecap.fitcaprate import fitmodel
 from batteryratecap.fitcaprate import fit
 from batteryratecap.fitcaprate import fitfunc
 
-DATA_PATH = '../../doc/Data'
+IN_PATH = '../../doc/data/performancelog.xls'
+TEST_DATA_PATH = '../../doc/data/data_for_tests'
 
 
 def test_fitmodel():
@@ -19,7 +20,7 @@ def test_fitmodel():
     '''
     # Write parameters to csv file with fit function
     df_input = pd.DataFrame({"Rate": [1, 2, 3, 4, 5]})
-    out_file = os.path.join(DATA_PATH, "test_fitparameters.xlsx")
+    out_file = os.path.join(TEST_DATA_PATH, "test_fitparameters.xlsx")
     # Test input dataframe has the correct number of columns
     try:
         fitmodel(df_input, out_file, [0.5, 1, 200])
@@ -29,7 +30,7 @@ def test_fitmodel():
         wrong number of columns"
     # Test output size of fit parameter csv file
     # read output of the optimized parameters
-    df_input = pd.read_excel(os.path.join(DATA_PATH, "performancelog.xls"),
+    df_input = pd.read_excel(IN_PATH,
                              sheet_name='CapacityRate',
                              header=[0, 1, 2])
     fitmodel(df_input, out_file, [0.5, 1, 200])
@@ -46,7 +47,7 @@ def test_fit():
     to the optimized, desired, paramters: the characteristic time tau,
     the n fractor, and specific capacity Q
     """
-    filepath = os.path.join(DATA_PATH, "test_kwarg_fit.xlsx")
+    filepath = os.path.join(TEST_DATA_PATH, "test_kwarg_fit.xlsx")
     # intial guess parameter
     tau = 0.5
     exponent_n = 1
@@ -69,7 +70,7 @@ def test_fitfunc():
     the maximum value at initail discharge rate (at zero) is less
     than or equal to the specific capacity
     '''
-    filepath = os.path.join(DATA_PATH, "test_kwarg_fit.xlsx")
+    filepath = os.path.join(TEST_DATA_PATH, "test_kwarg_fit.xlsx")
     tau = 0.5
     exponent_n = 1
     capacity_q = 100

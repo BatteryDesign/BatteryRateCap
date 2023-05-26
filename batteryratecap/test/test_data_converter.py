@@ -8,10 +8,12 @@ from batteryratecap.data_converter import potential_rate_all
 from batteryratecap.data_converter import excel_merge
 from batteryratecap.data_converter import capacity_cycle
 
-IN_PATH = '../../doc/Data/performancelog.xls'
-OUT_PATH = '../../doc/Data/test_export_potential_rate.xlsx'
-WRONGH_IN_PATH = '../../doc/Data/wrong_header_performancelog.xls'
-WRONGS_IN_PATH = '../../doc/Data/wrong_sheetname_performancelog.xls'
+IN_PATH = '../../doc/data/performancelog.xls'
+OUT_PATH = '../../doc/data/data_for_tests/test_export_potential_rate.xlsx'
+WRONGH_IN_PATH = '../../doc/data/data_for_tests/\
+wrong_header_performancelog.xls'
+WRONGS_IN_PATH = '../../doc/data/data_for_tests/\
+wrong_sheetname_performancelog.xls'
 
 
 def test_potential_rate_paper_set():
