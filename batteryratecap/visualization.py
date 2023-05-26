@@ -27,7 +27,7 @@ def feature_vs_n_tau_q(visualization_df, features):
     assert 'tau' in visualization_df, 'The dataframe is missing \
     the "tau" column'
     assert 'Q' in visualization_df, 'The dataframe is missing the "Q" column'
-    matplotlib.rcParams.update({'font.size': 24})
+    matplotlib.rcParams.update({'font.size': 40})
     fig = plt.figure(figsize=(36, 10*len(features)))
     axis = fig.subplots(nrows=len(features), ncols=3)
     # For analysis with more than 1 features
