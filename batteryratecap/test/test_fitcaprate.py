@@ -7,7 +7,7 @@ from batteryratecap.fitcaprate import fitmodel
 from batteryratecap.fitcaprate import fit
 from batteryratecap.fitcaprate import fitfunc
 
-IN_PATH = '../../doc/data/performancelog.xls'
+IN_PATH = '../../doc/data/input_performancelog.xls'
 TEST_DATA_PATH = '../../doc/data/data_for_tests'
 
 
