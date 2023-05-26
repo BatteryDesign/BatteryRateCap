@@ -64,10 +64,10 @@ def plot_linear_regression(x_array, y_array, plot=True):
     slope, intercept, _, _, stderr = scipy.stats.linregress(x_array, y_array)
     line_label = f'Regression line: y={intercept:.2f}+{slope:.2f}x'
     if plot is True:
-        plt.figure(figsize=(12, 8))
+        plt.figure(figsize=(10, 8))
         plt.scatter(x_array, y_array,
                     marker='o', color='green',
-                    label='input data')
+                    label='input data', s=200)
         plt.plot(x_array, intercept+slope*x_array, label=line_label)
         plt.legend()
         plt.tight_layout()
@@ -136,6 +136,6 @@ def linear_outliers(x_array, y_array, num):
                                           y_no_outliers)
     print('new std error is', stderr)
     plt.scatter(x_outliers, y_outliers, marker='o',
-                color='r', label='outliers')
+                color='r', label='outliers', s=200)
     plt.legend()
     return x_no_outliers, y_no_outliers
