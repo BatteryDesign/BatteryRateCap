@@ -39,27 +39,26 @@ to allow or enhance the rate capability analysis approach developed by Tian et a
 The interdependency bewteen components are shown in the diagram above, where a brief desciprtion of each component can be found below:<br/>
 - (A) a data conversion component to convert voltage-dicharge data and/or capacity-cycle data to capacity-rate 
 data
-- (B) a curve-fitting component to fit Tian et al.'s model to the experimental capacity-rate data
+- (B) a curve-fitting component to fit experimental capacity-rate data to Tian et al's empirical model.
 - (C) a visulization component to plot the fitting parameters obtained from component (B) against other physical 
-quantities such as the battery electrode thickness and porosity 
+quantities such as the battery electrode thickness and porosity. 
 - (D) a hypothesis testing component to compare different battery cases based on their rate capability 
-charateristics. <br/>
+charateristics and to detect outliers in a linear relationship. <br/>
 
 
 
-## Use Cases
-1. Use case 1: Data Conversion
-   - Our data conversion module can be used to convert charge/discharge data (voltage versus capacity) and capacity-cycle  into rate-capacity data.
-   - Target users: Battery researchers
-2. Use case 2: Data Fitting
-   - Our curve-fitting module is for any researchers who would like to fit their capacity-rate data and attain fitting parameters including charatersitic time, n value, and capacity Q as described in the *Research Objectives* section. 
-   - Target users: Battery researchers
-3. Use case 3: Data visulization
-   - Our data visualization module is for any researchers that wish to visualize their batteries data with plots of fitting parameters versus battery geometry/material parameters. 
-   - Target users: Battery researcher who have multiple sets of battery data that include charateristic time, n value, capacity, and other geometry/material parameters.
-4. Use case 4: Hypothesis testing
-   - Our hypothesis testing module can be used to determine whether a statistically-signicificant linear relationship exisits between 3D battery desgin parameters and performance.
-   - Target users: Battery researchers who have battery desgin parameter and performance data.
+## Example Use Cases for Battery Researchers
+### Use case 1. Data Conversion
+The data conversion module converts charge/discharge data (voltage versus capacity) and capacity-cycle  into rate-capacity data.
+   
+### Use case 2. Data Fitting
+The curve-fitting module fits capacity-rate data and attains fitting parameters, including charatersitic time, *n* value, and capacity *Q* as described in the introduction.
+
+### Use case 3: Data visulization
+The  data visualization module plots fitting parameters versus battery geometry/material parameters. 
+
+### Use case 4: Hypothesis testing
+The hypothesis testing module determines whether a statistically-signicificant linear relationship exisits between 3D battery desgin parameters and performance.
 
  
 ## How to Install
@@ -76,6 +75,6 @@ pip install batteryratecap
 ## Community Guidelines
 If you encounter any issue using *BatRateCap* or would like to request an additional feature, please report using a [Github 
 issue](https://github.com/BatteryDesign/BatteryRateCap/issues). If you would like to directly contribute to this project, please email the 
-project PI Dr. Corie Cobb at clcobb@uw.edu.
+reporsitory maintainer at .
 
 
