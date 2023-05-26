@@ -196,7 +196,7 @@ def capacity_cycle(capacity_cycle_array, num_rate,
     # np.array of the unique classes
     clusters = np.unique(prediction)
     # Plot the points now that they are grouped
-    plt.figure(figsize=(10,8))
+    plt.figure(figsize=(10, 8))
     for cluster in clusters:
         row_ix = np.where(prediction == cluster)
         plt.scatter(capacity_cycle_array[row_ix, 0],
