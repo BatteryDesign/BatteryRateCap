@@ -3,12 +3,15 @@ This is the unit test for fitcaprate.py.
 """
 import os
 import pandas as pd
+import batteryratecap
 from batteryratecap.fitcaprate import fitmodel
 from batteryratecap.fitcaprate import fit
 from batteryratecap.fitcaprate import fitfunc
 
-IN_PATH = '../../doc/data/input_performancelog.xls'
-TEST_DATA_PATH = '../../doc/data/data_for_tests'
+IN_PATH = os.path.join(batteryratecap.__path__[0],
+			'doc/data')
+TEST_DATA_PATH = os.path.join(batteryratecap.__path__[0],
+			       'doc/data/data_for_tests')
 
 
 def test_fitmodel():
