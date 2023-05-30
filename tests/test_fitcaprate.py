@@ -2,16 +2,16 @@
 This is the unit test for fitcaprate.py.
 """
 import os
+import git
 import pandas as pd
-import batteryratecap
 from batteryratecap.fitcaprate import fitmodel
 from batteryratecap.fitcaprate import fit
 from batteryratecap.fitcaprate import fitfunc
 
-IN_PATH = os.path.join(batteryratecap.__path__[0],
-			'doc/data')
-TEST_DATA_PATH = os.path.join(batteryratecap.__path__[0],
-			       'doc/data/data_for_tests')
+REPO = git.Repo('.', search_parent_directories=True)
+GIT_PATH = REPO.git.rev_parse("--show-toplevel")
+IN_PATH = os.path.join(GIT_PATH, 'doc/data')
+TEST_DATA_PATH = os.path.join(GIT_PATH, 'doc/data/data_for_tests')
 
 
 def test_fitmodel():
@@ -31,9 +31,10 @@ def test_fitmodel():
         assert isinstance(err, AssertionError), "Function outputs \
         the incorrrect error type when input dataframe has the \
         wrong number of columns"
-    # Test output size of fit parameter csv file
+    # Test output size of fit parameter file
     # read output of the optimized parameters
-    df_input = pd.read_excel(IN_PATH,
+    df_input = pd.read_excel(os.path.join(IN_PATH,
+                                          "input_performancelog.xls"),
                              sheet_name='CapacityRate',
                              header=[0, 1, 2])
     fitmodel(df_input, out_file, [0.5, 1, 200])

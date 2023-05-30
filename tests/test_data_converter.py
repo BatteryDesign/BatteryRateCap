@@ -1,6 +1,8 @@
 """
 Unit test for data_converter
 """
+import os
+import git
 import pandas as pd
 import numpy as np
 from batteryratecap.data_converter import potential_rate_paper_set
@@ -8,12 +10,16 @@ from batteryratecap.data_converter import potential_rate_all
 from batteryratecap.data_converter import excel_merge
 from batteryratecap.data_converter import capacity_cycle
 
-IN_PATH = '../../doc/data/input_performancelog.xls'
-OUT_PATH = '../../doc/data/data_for_tests/test_export_potential_rate.xlsx'
-WRONGH_IN_PATH = '../../doc/data/data_for_tests/\
-wrong_header_performancelog.xls'
-WRONGS_IN_PATH = '../../doc/data/data_for_tests/\
-wrong_sheetname_performancelog.xls'
+REPO = git.Repo('.', search_parent_directories=True)
+GIT_PATH = REPO.git.rev_parse("--show-toplevel")
+DATA_PATH = os.path.join(GIT_PATH, 'doc/data')
+IN_PATH = os.path.join(DATA_PATH, 'input_performancelog.xls')
+OUT_PATH = os.path.join(DATA_PATH, 'data_for_tests/\
+test_export_potential_rate.xlsx')
+WRONGH_IN_PATH = os.path.join(DATA_PATH, 'data_for_tests/\
+wrong_header_performancelog.xls')
+WRONGS_IN_PATH = os.path.join(DATA_PATH, 'data_for_tests/\
+wrong_sheetname_performancelog.xls')
 
 
 def test_potential_rate_paper_set():
