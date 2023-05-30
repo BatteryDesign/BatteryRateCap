@@ -5,3 +5,7 @@ BatteryRateCap.egg-info/PKG-INFO
 BatteryRateCap.egg-info/SOURCES.txt
 BatteryRateCap.egg-info/dependency_links.txt
 BatteryRateCap.egg-info/top_level.txt
+tests/test_correlationtest.py
+tests/test_data_converter.py
+tests/test_fitcaprate.py
+tests/test_visualization.py
