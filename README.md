@@ -81,7 +81,7 @@ and highlights potential outliers (in red) to the linear relationship.
 ## How to Install
 *BatteryRateCap* can be installed by cloning the entire repoitory or via pip:</br>
 ```
-pip install batteryratecap
+pip install BatteryRateCap
 ```
 
 ## Software Dependency
@@ -90,7 +90,7 @@ pip install batteryratecap
 
 
 ## Community Guidelines
-If you encounter any issue using *BatRateCap* or would like to request an additional feature, please report using a [Github 
+If you encounter any issue using *BatteryRateCap* or would like to request an additional feature, please report using a [Github 
 issue](https://github.com/BatteryDesign/BatteryRateCap/issues). If you would like to directly contribute to this project, please email the 
 reporsitory maintainer Doris Hung at dhung@uw.edu.
 
