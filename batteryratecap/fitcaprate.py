@@ -194,6 +194,7 @@ def plotfit(dframe, dframe_out):
             plt.text(0.1, 0.1,
                      'not enough datapoints', transform=axis.transAxes)
         plt.legend(markerscale=0.5, fontsize='xx-small', loc='upper right')
-        axis.set_xlabel('discharge rate')
-        axis.set_ylabel('capacity [mAh/g]')  # mass normalized capacity
+        capacity_unit = dframe.columns[2*i+1][2]
+        axis.set_xlabel('C-rate (1/hour)')
+        axis.set_ylabel(capacity_unit)
         plt.tight_layout()
