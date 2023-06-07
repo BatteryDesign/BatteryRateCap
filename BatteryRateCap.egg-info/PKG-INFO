@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: BatteryRateCap
-Version: 0.1.0
+Version: 0.1.1
 Summary: A Python package for battery rate capability analysis.
 Author-email: Chih-Hsuan Hung <dhung@uw.edu>, Praise Anyanwu <anyanc@uw.edu>, "Kevin G. Lee" <gskl92@uw.edu>, "Matthew J. Canin" <matthewcanin@gmail.com>, Kevin Martinez-Chavez <martikev@protonmail.com>
 Maintainer-email: Chih-Hsuan Hung <dhung@uw.edu>
@@ -119,7 +119,7 @@ and highlights potential outliers (in red) to the linear relationship.
 ## How to Install
 *BatteryRateCap* can be installed by cloning the entire repoitory or via pip:</br>
 ```
-pip install batteryratecap
+pip install BatteryRateCap
 ```
 
 ## Software Dependency
@@ -128,7 +128,7 @@ pip install batteryratecap
 
 
 ## Community Guidelines
-If you encounter any issue using *BatRateCap* or would like to request an additional feature, please report using a [Github 
+If you encounter any issue using *BatteryRateCap* or would like to request an additional feature, please report using a [Github 
 issue](https://github.com/BatteryDesign/BatteryRateCap/issues). If you would like to directly contribute to this project, please email the 
 reporsitory maintainer Doris Hung at dhung@uw.edu.
 
