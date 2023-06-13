@@ -92,6 +92,6 @@ pip install BatteryRateCap
 ## Community Guidelines
 If you encounter any issue using *BatteryRateCap* or would like to request an additional feature, please report using a [Github 
 issue](https://github.com/BatteryDesign/BatteryRateCap/issues). If you would like to directly contribute to this project, please email the 
-reporsitory maintainer Doris Hung at dhung@uw.edu.
+reporsitory maintainers Doris Hung (dhung@uw.edu) and Praise Anyanwu (anyanc@uw.edu).
 
 
