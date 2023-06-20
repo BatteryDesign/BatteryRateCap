@@ -26,7 +26,7 @@ def feature_vs_n_tau_q(visualization_df, features):
     assert 'n' in visualization_df, 'The dataframe is missing the "n" column'
     assert 'tau' in visualization_df, 'The dataframe is missing \
     the "tau" column'
-    assert 'Q' in visualization_df, 'The dataframe is missing the "Q" column'
+    assert 'Qmax' in visualization_df, 'The dataframe is missing the "Qmax" column'
     matplotlib.rcParams.update({'font.size': 40})
     fig = plt.figure(figsize=(36, 10*len(features)))
     axis = fig.subplots(nrows=len(features), ncols=3)
@@ -46,12 +46,12 @@ def feature_vs_n_tau_q(visualization_df, features):
             axis[i, 1].set_xlabel(feature)
             axis[i, 1].set_ylabel('tau')
             axis[i, 1].semilogy()
-            # RIGHT COLUMN (feature vs. 'Q')
+            # RIGHT COLUMN (feature vs. 'Qmax')
             axis[i, 2].scatter(visualization_df[feature],
-                               visualization_df['Q'],
+                               visualization_df['Qmax'],
                                color='green', s=500)
             axis[i, 2].set_xlabel(feature)
-            axis[i, 2].set_ylabel('Q')
+            axis[i, 2].set_ylabel('Qmax')
     # For analysis with only 1 feature
     elif len(features) == 1:
         for i, feature in enumerate(features):
@@ -68,11 +68,11 @@ def feature_vs_n_tau_q(visualization_df, features):
             axis[1].set_xlabel(feature)
             axis[1].set_ylabel('tau')
             axis[1].semilogy()
-            # RIGHT COLUMN (feature vs. 'Q')
+            # RIGHT COLUMN (feature vs. 'Qmax')
             axis[2].scatter(visualization_df[feature],
-                            visualization_df['Q'],
+                            visualization_df['Qmax'],
                             color='green', s=500)
             axis[2].set_xlabel(feature)
-            axis[2].set_ylabel('Q')
+            axis[2].set_ylabel('Qmax')
     plt.tight_layout()
     return fig

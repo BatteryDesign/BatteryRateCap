@@ -76,8 +76,8 @@ def fitmodel(dframe, output_xlsx, params0):
         colnames[index] = tuple(colnames[index])
     # insert optimized parameters into dataframe
     popt_dframe = pd.DataFrame(columns=['Paper #', 'Set',
-                                        'tau', 'n', 'Q',
-                                        'sigma_tau', 'sigma_n', 'sigma_Q'])
+                                        'tau', 'n', 'Qmax',
+                                        'sigma_tau', 'sigma_n', 'sigma_Qmax'])
     # Input paper, set numbers, optimized parameters and
     # their error margins into dataframe
     for index, element in enumerate(colnames):
@@ -114,7 +114,7 @@ def fit(params0, **kwargs):
     filename: string, filepath
         (excel format) first column is xdata, second, ydata
     Output Argument
-    Return the optimized parameters tau, n, Q
+    Return the optimized parameters tau, n, Qmax
     '''
     # import data
     if 'xdata' in kwargs:
@@ -162,11 +162,11 @@ def plotfit(dframe, dframe_out):
         # optimized parameters
         tau = dframe_out.loc[i, "tau"]
         exponent_n = dframe_out.loc[i, "n"]
-        capacity_q = dframe_out.loc[i, "Q"]
+        capacity_q = dframe_out.loc[i, "Qmax"]
         # error margins of optimized parameters
         sigma_tau = dframe_out.loc[i, "sigma_tau"]
         sigma_n = dframe_out.loc[i, "sigma_n"]
-        sigma_q = dframe_out.loc[i, "sigma_Q"]
+        sigma_q = dframe_out.loc[i, "sigma_Qmax"]
         # use fit parameters to predict capacity
         rate = np.linspace(min(xdata), max(xdata), 100)
         # compare predicted capacity to known capacity in ydata
@@ -187,7 +187,7 @@ def plotfit(dframe, dframe_out):
                       label='lsqcurvefit')
             labels = '#' + str(i) + '\ntau = ' + \
                      f'{tau:.2f}' + '\nn = ' + \
-                     f'{exponent_n:.2f}' + '\nQ = ' + \
+                     f'{exponent_n:.2f}' + '\nQmax = ' + \
                      f'{capacity_q:.2f}'
             plt.text(0.1, 0.1, labels, transform=axis.transAxes)
         else:
