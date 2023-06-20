@@ -15,7 +15,7 @@ def test_feature_vs_n_tau_q():
     '''
     df1 = pd.DataFrame({'n': [1, 2, 3],
                         'tau': [0.1, 0.2, 0.3],
-                        'Q': [100, 200, 300],
+                        'Qmax': [100, 200, 300],
                         'cathode_thickness': [20, 30, 40]})
     df2 = pd.DataFrame({'n': [1, 2, 3],
                         'cathode_thickness': [20, 30, 40]})
