@@ -26,7 +26,8 @@ def feature_vs_n_tau_q(visualization_df, features):
     assert 'n' in visualization_df, 'The dataframe is missing the "n" column'
     assert 'tau' in visualization_df, 'The dataframe is missing \
     the "tau" column'
-    assert 'Qmax' in visualization_df, 'The dataframe is missing the "Qmax" column'
+    assert 'Qmax' in visualization_df, 'The dataframe is missing \
+    the "Qmax" column'
     matplotlib.rcParams.update({'font.size': 40})
     fig = plt.figure(figsize=(36, 10*len(features)))
     axis = fig.subplots(nrows=len(features), ncols=3)
