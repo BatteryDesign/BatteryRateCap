@@ -83,7 +83,18 @@ and highlights potential outliers (in red) to the linear relationship.
 ```
 pip install BatteryRateCap
 ```
-
+All package depdencies for BatteryRateCap can be installed via the requirement file: </br>
+```
+pip install -r requirements.txt
+```
+Additional optional packages used in the demo notebooks can be install from: </br>
+```
+pip install -r optional_dependencies.txt
+```
+Alternatively, the environment.yml files contains all denpendencies for *BatteryRateCap* and its demo notebooks for creating a conda environment: </br>
+```
+conda env create -f environment.yml
+```
 ## Software Dependency
 - Python >=3.6
 - See environment.yml for all Python package dependencies
