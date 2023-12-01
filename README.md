@@ -100,6 +100,9 @@ conda env create -f environment.yml
 - See environment.yml for all Python package dependencies
 
 
+## How to Use the Demo Notebook
+
+
 ## Community Guidelines
 If you encounter any issue using *BatteryRateCap* or would like to request an additional feature, please report using a [Github 
 issue](https://github.com/BatteryDesign/BatteryRateCap/issues). If you would like to directly contribute to this project, please email the 
