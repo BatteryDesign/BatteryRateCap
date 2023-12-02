@@ -47,8 +47,8 @@ charateristics and to detect outliers in a linear relationship. <br/>
 
 
 
-## Example Use Cases (as demonstrated in Jupyter Notebooks)
-### Use case 1. Data Conversion
+## Examples of the Use Cases (demonstrated in the Jupyter Notebooks)
+### Use Case 1. Data Conversion
 The *data_converter* module converts charge/discharge data (voltage versus capacity) and capacity-cycle data 
 into rate-capacity data. Complete procedures and example codes on how to use the *data_converter* module are 
 detailed in: 
@@ -59,7 +59,7 @@ Below is an excerpt of the *data_converter* demo notebook, showing
 the output of how *data_converter* categorizes capacity data by their C-rate in a capacity-cycle dataset. 
 The conversion from voltage-capacity to capacity-rate data does not involve any visuals, so no figures are shown here.<br/>
 ![alt text](https://github.com/BatteryDesign/BatteryRateCap/blob/main/demo/data_converter_grouped.png)   
-### Use case 2. Data Fitting
+### Use Case 2. Data Fitting
 The *fitcaprate* module fits capacity-rate data and attains fitting parameters, including charatersitic time, 
 *n* value, and capacity *Q* as described in the introduction. Complete procedures and example codes on how to 
 use the *fitcaprate* module can be found in:
@@ -70,7 +70,7 @@ Below is an excerpt of the *fitcaprate*
 demo notebook, showing the results of fitted curves (red dashed curves) found by *fitcaprate* for a set of 
 battery capcity-rate data (blue dots).<br/>
 ![alt text](https://github.com/BatteryDesign/BatteryRateCap/blob/main/demo/fitcaprate_example.png)
-### Use case 3: Data visulization
+### Use Case 3: Data visulization
 The *visualization* module creates a panel plot that lays out 2D scatter plots of fitting parameters versus 
 available battery design parameters realated to geometry and materials. Complete procedures and example 
 codes on how to use the *visualization* module are detailed in:
@@ -79,7 +79,7 @@ Demo/Demo_visualization.ipynb
 ```
 Below is an excerpt of the *visualization* demo notebook, showing the output panel plot.<br/>
 ![alt text](https://github.com/BatteryDesign/BatteryRateCap/blob/main/demo/visualization_example.png)
-### Use case 4: Hypothesis testing
+### Use Case 4: Hypothesis Testing
 The *correlationtest* module determines whether a statistically-signicificant linear relationship exisits 
 between found battery fitting parameters, which indicate the battery performance, and their desgin parameters
 related to geometry and materials. Complete procedures and example codes on how to use the *correlationtest* 
