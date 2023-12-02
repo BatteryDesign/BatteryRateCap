@@ -70,7 +70,7 @@ Below is an excerpt of the *fitcaprate*
 demo notebook, showing the results of fitted curves (red dashed curves) found by *fitcaprate* for a set of 
 battery capcity-rate data (blue dots).<br/>
 ![alt text](https://github.com/BatteryDesign/BatteryRateCap/blob/main/demo/fitcaprate_example.png)
-### Use Case 3: Data visulization
+### Use Case 3: Data Visulization
 The *visualization* module creates a panel plot that lays out 2D scatter plots of fitting parameters versus 
 available battery design parameters realated to geometry and materials. Complete procedures and example 
 codes on how to use the *visualization* module are detailed in:
